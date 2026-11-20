@@ -22,7 +22,7 @@ export function CtaBanner() {
               <br />
               COMING UP?
             </h2>
-            <p className="font-body-md text-white/90 text-[16px] sm:text-[17px] font-normal leading-relaxed mt-6 max-w-md">
+            <p className="font-body-md text-white/90 text-[16px] md:text-[17px] lg:text-[18px] font-normal leading-relaxed mt-6 max-w-md">
               Message me on WhatsApp and tell me what you are making.
             </p>
           </div>

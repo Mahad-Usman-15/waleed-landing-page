@@ -52,7 +52,7 @@ export function FaqSection() {
             >
               COMMON QUESTIONS
             </h2>
-            <p className="font-body-md text-[17px] text-[#9DB0A2] max-w-[320px] mb-8 leading-relaxed text-left">
+            <p className="font-body-md text-[16px] md:text-[17px] lg:text-[18px] text-[#9DB0A2] max-w-[320px] mb-8 leading-relaxed text-left">
               Have a different question? Message me on WhatsApp.
             </p>
             <a

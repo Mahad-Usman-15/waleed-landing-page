@@ -45,7 +45,7 @@ export function CaseStudiesSection() {
         <h2 className="font-headline-lg text-headline-lg-mobile sm:text-headline-lg uppercase text-on-surface tracking-wide">
           Selected Case Studies
         </h2>
-        <p className="font-body-md text-body-md text-secondary max-w-xl mt-2">
+        <p className="font-body-md text-[16px] md:text-[17px] lg:text-[18px] text-secondary max-w-xl mt-2">
           Nine featured projects covering technical explainer animation, agency reels, brand
           narratives, and editing craft.
         </p>
@@ -75,7 +75,7 @@ export function CaseStudiesSection() {
                 <h3 className="font-title-md text-title-md uppercase text-on-surface tracking-wider">
                   {study.title}
                 </h3>
-                <p className="font-body-md text-body-md text-secondary leading-relaxed">
+                <p className="font-body-md text-[16px] md:text-[17px] lg:text-[18px] text-secondary leading-relaxed">
                   {study.description}
                 </p>
                 <div className="pt-4 flex flex-wrap items-center gap-4 text-secondary font-label-md text-label-md">
@@ -184,7 +184,7 @@ export function CaseStudiesSection() {
             </div>
 
             <div className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <p className="font-body-md text-sm text-secondary max-w-xl leading-relaxed">
+              <p className="font-body-md text-[16px] md:text-[17px] lg:text-[18px] text-secondary max-w-xl leading-relaxed">
                 {activeStudy.description}
               </p>
               <div className="flex items-center gap-3 shrink-0">

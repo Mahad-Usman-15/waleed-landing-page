@@ -150,6 +150,22 @@
   main > :last-child {
     margin-bottom: 0 !important;
   }
+
+  p {
+    font-size: 16px;
+  }
+
+  @media (min-width: 768px) {
+    p {
+      font-size: 17px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    p {
+      font-size: 18px;
+    }
+  }
 }
 
 ::-webkit-scrollbar {

@@ -153,7 +153,7 @@ export function ReviewsSection() {
         <h2 className="font-headline-lg text-headline-lg-mobile sm:text-headline-lg uppercase text-on-surface tracking-wide">
           What Clients Say
         </h2>
-        <p className="font-body-md text-body-md text-secondary max-w-lg mt-2">
+        <p className="font-body-md text-[16px] md:text-[17px] lg:text-[18px] text-secondary max-w-lg mt-2">
           Direct quotes from founders, engineers, and creators I collaborated with.
         </p>
       </Reveal>

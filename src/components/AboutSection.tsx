@@ -60,7 +60,7 @@ export function AboutSection() {
             Your story, in motion
           </motion.h2>
           <motion.p
-            className="font-body-md text-body-md text-secondary leading-relaxed mb-8"
+            className="font-body-md text-[16px] md:text-[17px] lg:text-[18px] text-secondary leading-relaxed mb-8"
             initial={initialHidden}
             whileInView={visibleState}
             viewport={REVEAL_VIEWPORT}

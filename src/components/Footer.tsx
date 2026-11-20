@@ -13,7 +13,7 @@ export function Footer() {
               <div className="font-headline-md text-headline-md tracking-wider text-on-surface uppercase">
                 WALEED REHAN
               </div>
-              <p className="font-body-md text-body-md text-secondary max-w-sm">
+              <p className="font-body-md text-[16px] md:text-[17px] lg:text-[18px] text-secondary max-w-sm">
                 Motion designer and video editor specializing in explainers, promotional cuts, and
                 brand motion systems.
               </p>
@@ -43,7 +43,7 @@ export function Footer() {
                 Contact
               </div>
               <div className="space-y-2">
-                <p className="text-body-md">
+                <p className="text-[16px] md:text-[17px] lg:text-[18px]">
                   <a
                     className="text-secondary hover:text-primary transition-colors flex items-center gap-2"
                     href={`mailto:${CONTACT_INFO.email}`}
@@ -51,7 +51,7 @@ export function Footer() {
                     {CONTACT_INFO.email}
                   </a>
                 </p>
-                <p className="text-body-md">
+                <p className="text-[16px] md:text-[17px] lg:text-[18px]">
                   <a
                     className="text-secondary hover:text-primary transition-colors flex items-center gap-2"
                     href={buildWhatsAppUrl(WHATSAPP_MESSAGES.bannerAndFooter)}

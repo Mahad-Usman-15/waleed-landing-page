@@ -70,7 +70,7 @@ export function ProcessSection() {
                     >
                       {step.title}
                     </h3>
-                    <p className="text-xs text-[#9DB0A2] leading-relaxed font-['Montserrat']">
+                    <p className="text-[16px] md:text-[17px] lg:text-[18px] text-[#9DB0A2] leading-relaxed font-['Montserrat']">
                       {step.description}
                     </p>
                   </div>
@@ -141,7 +141,7 @@ export function ProcessSection() {
                     >
                       {step.title}
                     </h3>
-                    <p className="text-xs text-[#9DB0A2] leading-relaxed font-['Montserrat']">
+                    <p className="text-[16px] md:text-[17px] lg:text-[18px] text-[#9DB0A2] leading-relaxed font-['Montserrat']">
                       {step.description}
                     </p>
                   </div>

@@ -41,7 +41,7 @@ export function Hero() {
           </h1>
 
           {/* Body */}
-          <p className="font-body-lg text-body-lg text-secondary max-w-xl mb-10 leading-relaxed">
+          <p className="font-body-lg text-[16px] md:text-[17px] lg:text-[18px] text-secondary max-w-xl mb-10 leading-relaxed">
             Motion design and video editing for brands, creators, and agencies.
           </p>
 

@@ -16,7 +16,7 @@ export function ServicesSection() {
         <h2 className="text-[44px] sm:text-[64px] leading-none uppercase text-[#E2E2E2] font-['BBH_Sans_Bogle',_'Bebas_Neue',_sans-serif] tracking-[0.025em]">
           SERVICES I OFFER
         </h2>
-        <p className="max-w-[512px] text-[17px] leading-[1.65] text-[#B8CBBD] font-['Montserrat']">
+        <p className="max-w-[512px] text-[16px] md:text-[17px] lg:text-[18px] leading-[1.65] text-[#B8CBBD] font-['Montserrat']">
           Tailored motion design and editing solutions built to elevate your vision with speed,
           clarity, and precision.
         </p>
@@ -38,7 +38,7 @@ export function ServicesSection() {
                 <h3 className="font-['BBH_Sans_Bogle',_'Bebas_Neue',_sans-serif] text-[32px] leading-tight text-[#E2E2E2] uppercase mt-5 mb-2.5">
                   {service.title}
                 </h3>
-                <p className="text-[17px] leading-[1.6] text-[#B8CBBD] font-['Montserrat']">
+                <p className="text-[16px] md:text-[17px] lg:text-[18px] leading-[1.6] text-[#B8CBBD] font-['Montserrat']">
                   {service.description}
                 </p>
               </div>
