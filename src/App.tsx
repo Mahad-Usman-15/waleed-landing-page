@@ -1,3 +1,4 @@
+import { MotionConfig } from 'motion/react';
 import { AboutSection } from './components/AboutSection';
 import { CaseStudiesSection } from './components/CaseStudiesSection';
 import { CtaBanner } from './components/CtaBanner';
@@ -13,7 +14,7 @@ import { SkillsMarquee } from './components/SkillsMarquee';
 
 export default function App() {
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       <Navbar />
       <main className="w-full pt-20 bg-surface min-h-[calc(100vh-80px)]">
         <div className="flex flex-col w-full text-on-surface bg-surface selection:bg-primary selection:text-on-primary font-body-md overflow-x-hidden">
@@ -30,6 +31,6 @@ export default function App() {
         </div>
       </main>
       <Footer />
-    </>
+    </MotionConfig>
   );
 }

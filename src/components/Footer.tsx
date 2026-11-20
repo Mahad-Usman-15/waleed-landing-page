@@ -1,14 +1,15 @@
 import { CONTACT_INFO, NAV_LINKS } from '../data/portfolio';
 import { buildWhatsAppUrl, WHATSAPP_MESSAGES } from '../utils/portfolio';
 import { WhatsAppIcon } from './Icons';
+import { Reveal, RevealGrid, RevealItem } from './MotionPrimitives';
 
 export function Footer() {
   return (
     <>
       <footer className="w-full bg-surface-container-lowest mt-space-xl relative overflow-hidden">
         <div className="max-w-[1320px] mx-auto px-gutter py-space-xl">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-space-lg mb-space-lg">
-            <div className="md:col-span-5 space-y-space-sm">
+          <RevealGrid className="grid grid-cols-1 md:grid-cols-12 gap-space-lg mb-space-lg">
+            <RevealItem className="md:col-span-5 space-y-space-sm">
               <div className="font-headline-md text-headline-md tracking-wider text-on-surface uppercase">
                 WALEED REHAN
               </div>
@@ -16,9 +17,9 @@ export function Footer() {
                 Motion designer and video editor specializing in explainers, promotional cuts, and
                 brand motion systems.
               </p>
-            </div>
+            </RevealItem>
 
-            <div className="md:col-span-3 space-y-space-xs">
+            <RevealItem className="md:col-span-3 space-y-space-xs">
               <div className="font-label-md text-label-md uppercase text-primary tracking-widest">
                 quick links
               </div>
@@ -35,9 +36,9 @@ export function Footer() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </RevealItem>
 
-            <div className="md:col-span-4 space-y-space-xs">
+            <RevealItem className="md:col-span-4 space-y-space-xs">
               <div className="font-label-md text-label-md uppercase text-primary tracking-widest">
                 Contact
               </div>
@@ -61,10 +62,10 @@ export function Footer() {
                   </a>
                 </p>
               </div>
-            </div>
-          </div>
+            </RevealItem>
+          </RevealGrid>
 
-          <div className="pt-space-md flex flex-col sm:flex-row items-center justify-between gap-space-sm text-secondary font-label-md text-label-md">
+          <Reveal className="pt-space-md flex flex-col sm:flex-row items-center justify-between gap-space-sm text-secondary font-label-md text-label-md">
             <div>© 2026 Waleed Rehan. All rights reserved.</div>
             <a
               className="text-secondary hover:text-primary transition-colors flex items-center gap-1 uppercase tracking-wider"
@@ -77,7 +78,7 @@ export function Footer() {
               <span>Back to top</span>
               <span className="material-symbols-outlined text-[16px]">arrow_upward</span>
             </a>
-          </div>
+          </Reveal>
         </div>
       </footer>
 

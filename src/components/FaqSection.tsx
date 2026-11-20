@@ -1,9 +1,13 @@
 import { useState } from 'react';
+import { motion, useReducedMotion } from 'motion/react';
 import { FAQS } from '../data/portfolio';
+import { getRevealTransition, REVEAL_DISTANCE_PX, REVEAL_VIEWPORT } from '../utils/motion';
 import { buildWhatsAppUrl, WHATSAPP_MESSAGES } from '../utils/portfolio';
 import { MinusIcon, PlusIcon } from './Icons';
+import { RevealGrid, RevealItem } from './MotionPrimitives';
 
 export function FaqSection() {
+  const shouldReduceMotion = useReducedMotion();
   const [openIds, setOpenIds] = useState<Record<string, boolean>>(() => {
     const initial: Record<string, boolean> = {};
     for (const faq of FAQS) {
@@ -32,7 +36,13 @@ export function FaqSection() {
       <div className="max-w-[1320px] mx-auto px-6 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-6 items-start">
           {/* Left Column (4 cols, sticky) */}
-          <div className="lg:col-span-4 lg:sticky lg:top-28 flex flex-col items-start">
+          <motion.div
+            className="lg:col-span-4 lg:sticky lg:top-28 flex flex-col items-start"
+            initial={shouldReduceMotion ? false : { opacity: 0, y: REVEAL_DISTANCE_PX }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={REVEAL_VIEWPORT}
+            transition={getRevealTransition(shouldReduceMotion)}
+          >
             <div className="font-label-md text-[13px] font-semibold tracking-wider text-[#34E27A] uppercase mb-3 text-left">
               FAQS
             </div>
@@ -53,14 +63,14 @@ export function FaqSection() {
             >
               Message me on WhatsApp
             </a>
-          </div>
+          </motion.div>
 
           {/* Right Column (8 cols): Accordion */}
-          <div className="lg:col-span-8 flex flex-col w-full divide-y divide-[#34E27A]/[0.12] border-t border-b border-[#34E27A]/[0.12]">
+          <RevealGrid className="lg:col-span-8 flex flex-col w-full divide-y divide-[#34E27A]/[0.12] border-t border-b border-[#34E27A]/[0.12]">
             {FAQS.map((faq) => {
               const isOpen = Boolean(openIds[faq.id]);
               return (
-                <div key={faq.id} className="py-7 flex flex-col w-full text-left">
+                <RevealItem key={faq.id} className="py-7 flex flex-col w-full text-left">
                   <button
                     type="button"
                     aria-expanded={isOpen}
@@ -79,10 +89,10 @@ export function FaqSection() {
                       {faq.answer}
                     </div>
                   )}
-                </div>
+                </RevealItem>
               );
             })}
-          </div>
+          </RevealGrid>
         </div>
       </div>
     </section>

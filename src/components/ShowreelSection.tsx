@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { SHOWREEL_POSTER_URL } from '../data/portfolio';
 import { clampSeconds, formatTimecode, getProgressPercent } from '../utils/portfolio';
+import { Reveal } from './MotionPrimitives';
 
 const TOTAL_SECONDS = 60;
 
@@ -51,7 +52,7 @@ export function ShowreelSection() {
   return (
     <section className="w-full max-w-[1320px] mx-auto px-gutter py-16 lg:py-24 border-t border-outline">
       {/* Section Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+      <Reveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
         <div>
           <div className="font-label-md text-label-md uppercase text-primary tracking-widest mb-2">
             Showreel
@@ -60,15 +61,16 @@ export function ShowreelSection() {
             The work, in motion
           </h2>
         </div>
-      </div>
+      </Reveal>
 
       {/* Cinematic 16:9 Video Frame Player */}
-      <div
-        ref={containerRef}
-        id="showreel-container"
-        className="relative w-full aspect-video rounded-2xl bg-[#0B120D] border border-outline overflow-hidden shadow-2xl group flex flex-col justify-between p-6 sm:p-8 cursor-pointer transition-all duration-300 hover:border-primary/50"
-        onClick={togglePlay}
-      >
+      <Reveal delay={0.08}>
+        <div
+          ref={containerRef}
+          id="showreel-container"
+          className="relative w-full aspect-video rounded-2xl bg-[#0B120D] border border-outline overflow-hidden shadow-2xl group flex flex-col justify-between p-6 sm:p-8 cursor-pointer transition-all duration-300 hover:border-primary/50"
+          onClick={togglePlay}
+        >
         <img
           src={SHOWREEL_POSTER_URL}
           alt="Showreel Poster"
@@ -197,7 +199,8 @@ export function ShowreelSection() {
             </div>
           </div>
         </div>
-      </div>
+        </div>
+      </Reveal>
     </section>
   );
 }

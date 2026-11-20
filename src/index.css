@@ -164,3 +164,18 @@
     transform: translateX(-33.333333%);
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  body {
+    scroll-behavior: auto;
+  }
+
+  .animate-pulse {
+    animation: none !important;
+  }
+
+  [class*="animate-[marquee"] {
+    animation: none !important;
+  }
+}

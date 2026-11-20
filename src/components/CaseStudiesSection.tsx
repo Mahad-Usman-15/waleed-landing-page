@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
+import { motion, useReducedMotion } from 'motion/react';
 import { CASE_STUDIES } from '../data/portfolio';
+import { getRevealTransition, REVEAL_DISTANCE_PX, REVEAL_VIEWPORT } from '../utils/motion';
 import { buildWhatsAppUrl, getAdjacentIndex, WHATSAPP_MESSAGES } from '../utils/portfolio';
 import { WhatsAppIcon } from './Icons';
+import { Reveal } from './MotionPrimitives';
 
 export function CaseStudiesSection() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (selectedIndex === null) {
@@ -34,7 +38,7 @@ export function CaseStudiesSection() {
       className="w-full max-w-[1320px] mx-auto px-gutter py-20 lg:py-28 border-t border-outline"
       id="work"
     >
-      <div className="mb-16">
+      <Reveal className="mb-16">
         <div className="font-label-md text-label-md uppercase text-primary tracking-widest mb-3">
           Portfolio
         </div>
@@ -45,14 +49,18 @@ export function CaseStudiesSection() {
           Nine featured projects covering technical explainer animation, agency reels, brand
           narratives, and editing craft.
         </p>
-      </div>
+      </Reveal>
 
       {/* Stacked Cards Container */}
       <div className="space-y-8 lg:space-y-12 relative">
         {CASE_STUDIES.map((study, index) => (
-          <article
+          <motion.article
             key={study.number}
-            className={`sticky ${study.stickyTopClass} rounded-2xl bg-[#0B120D] hover:bg-surface-raised border border-outline p-6 sm:p-10 transition-all duration-300 shadow-2xl`}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: REVEAL_DISTANCE_PX }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={REVEAL_VIEWPORT}
+            transition={getRevealTransition(shouldReduceMotion)}
+            className={`sticky ${study.stickyTopClass} rounded-2xl bg-[#0B120D] hover:bg-surface-raised border border-outline p-6 sm:p-10 transition-colors duration-300 shadow-2xl`}
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-6 flex flex-col items-start space-y-4">
@@ -122,7 +130,7 @@ export function CaseStudiesSection() {
                 </button>
               </div>
             </div>
-          </article>
+          </motion.article>
         ))}
       </div>
 

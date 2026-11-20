@@ -1,15 +1,41 @@
 import { useState } from 'react';
+import { motion, useReducedMotion } from 'motion/react';
 import { PROCESS_STEPS } from '../data/portfolio';
+import {
+  getRevealTransition,
+  REVEAL_DISTANCE_PX,
+  REVEAL_VIEWPORT,
+  STAGGER_DELAY_S,
+} from '../utils/motion';
+import { Reveal } from './MotionPrimitives';
 
 export function ProcessSection() {
   const [activeStep, setActiveStep] = useState<string | null>(null);
+  const shouldReduceMotion = useReducedMotion();
+
+  const getStepVariants = (stepIndex: number) => {
+    if (shouldReduceMotion) {
+      return {
+        hidden: { opacity: 1, y: 0 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0 } },
+      };
+    }
+    return {
+      hidden: { opacity: 0, y: REVEAL_DISTANCE_PX },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: getRevealTransition(shouldReduceMotion, stepIndex * STAGGER_DELAY_S),
+      },
+    };
+  };
 
   return (
     <section
       id="process"
       className="w-full max-w-[1392px] mx-auto px-6 py-28 relative bg-[#000000] text-[#EAF3EC] border-t border-[#34E27A]/15 overflow-hidden"
     >
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-20">
+      <Reveal className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-20">
         <div className="flex flex-col items-start">
           <span className="text-[13px] font-semibold tracking-[0.08em] uppercase text-[#34E27A] font-['Montserrat'] mb-3">
             PROCESS
@@ -18,16 +44,22 @@ export function ProcessSection() {
             HOW IT WORKS
           </h2>
         </div>
-      </div>
+      </Reveal>
 
       <div className="relative w-full overflow-x-auto pb-8 pt-4">
-        <div className="min-w-[1100px] w-full relative">
+        <motion.div
+          className="min-w-[1100px] w-full relative"
+          initial={shouldReduceMotion ? false : 'hidden'}
+          whileInView="visible"
+          viewport={REVEAL_VIEWPORT}
+        >
           {/* Top Alternating Row */}
           <div className="grid grid-cols-6 gap-6 relative">
-            {PROCESS_STEPS.map((step) =>
+            {PROCESS_STEPS.map((step, idx) =>
               step.position === 'top' ? (
-                <div
+                <motion.div
                   key={step.number}
+                  variants={getStepVariants(idx)}
                   className="flex flex-col justify-end items-center text-center pb-6 min-h-[170px]"
                 >
                   <div className="max-w-[200px] flex flex-col items-center">
@@ -43,7 +75,7 @@ export function ProcessSection() {
                     </p>
                   </div>
                   <div className="w-px h-10 bg-[#34E27A]/40 mt-4" />
-                </div>
+                </motion.div>
               ) : (
                 <div key={step.number} className="min-h-[170px]" />
               )
@@ -62,7 +94,11 @@ export function ProcessSection() {
               {PROCESS_STEPS.map((step, idx) => {
                 const isSelected = activeStep === step.number;
                 return (
-                  <div key={step.number} className="flex justify-center relative">
+                  <motion.div
+                    key={step.number}
+                    variants={getStepVariants(idx)}
+                    className="flex justify-center relative"
+                  >
                     {idx === 0 && (
                       <div className="absolute -top-5 left-1/2 -translate-x-1/2 text-[#34E27A] flex items-center justify-center" />
                     )}
@@ -81,7 +117,7 @@ export function ProcessSection() {
                     >
                       {step.number}
                     </button>
-                  </div>
+                  </motion.div>
                 );
               })}
             </div>
@@ -89,10 +125,11 @@ export function ProcessSection() {
 
           {/* Bottom Alternating Row */}
           <div className="grid grid-cols-6 gap-6 relative">
-            {PROCESS_STEPS.map((step) =>
+            {PROCESS_STEPS.map((step, idx) =>
               step.position === 'bottom' ? (
-                <div
+                <motion.div
                   key={step.number}
+                  variants={getStepVariants(idx)}
                   className="flex flex-col justify-start items-center text-center pt-6 min-h-[170px]"
                 >
                   <div className="w-px h-10 bg-[#34E27A]/40 mb-4" />
@@ -108,13 +145,13 @@ export function ProcessSection() {
                       {step.description}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               ) : (
                 <div key={step.number} className="min-h-[170px]" />
               )
             )}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

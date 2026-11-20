@@ -1,8 +1,12 @@
+import { motion, useReducedMotion } from 'motion/react';
 import { PORTRAIT_URL } from '../data/portfolio';
+import { getHeroEntranceProps } from '../utils/motion';
 import { buildWhatsAppUrl, WHATSAPP_MESSAGES } from '../utils/portfolio';
 import { WhatsAppIcon } from './Icons';
 
 export function Hero() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section
       id="top"
@@ -15,7 +19,10 @@ export function Hero() {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
         {/* Left Column: Copy & Actions */}
-        <div className="lg:col-span-7 flex flex-col items-start z-10">
+        <motion.div
+          className="lg:col-span-7 flex flex-col items-start z-10"
+          {...getHeroEntranceProps(shouldReduceMotion, 0)}
+        >
           {/* Outlined Tag Pill */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-raised border border-outline mb-6">
             <span className="w-2 h-2 rounded-full bg-primary-container animate-pulse" />
@@ -70,10 +77,13 @@ export function Hero() {
               <span>Client Satisfaction</span>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Right Column: Masked Spotlight Portrait */}
-        <div className="lg:col-span-5 relative flex justify-center items-end">
+        <motion.div
+          className="lg:col-span-5 relative flex justify-center items-end"
+          {...getHeroEntranceProps(shouldReduceMotion, 0.1)}
+        >
           {/* Ambient Green Spotlight Glow */}
           <div className="absolute w-[360px] h-[360px] md:w-[480px] md:h-[480px] rounded-full bg-primary-deep/25 blur-[120px] pointer-events-none -z-0" />
           {/* Portrait Container with gradient edge feathering */}
@@ -84,7 +94,7 @@ export function Hero() {
               src={PORTRAIT_URL}
             />
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
