@@ -64,19 +64,6 @@ export function Hero() {
               <span className="material-symbols-outlined text-[20px]">arrow_downward</span>
             </a>
           </div>
-
-          {/* Metric micro-strip */}
-          <div className="mt-12 pt-8 border-t border-outline flex flex-wrap items-center gap-x-5 gap-y-3 sm:gap-8 text-secondary font-label-md text-label-md uppercase tracking-wider w-full sm:w-auto">
-            <div className="flex items-center gap-2">
-              <span className="font-title-md text-title-md text-on-surface font-normal">09+</span>
-              <span>Signature Projects</span>
-            </div>
-            <div className="h-4 w-px bg-outline" />
-            <div className="flex items-center gap-2">
-              <span className="font-title-md text-title-md text-primary font-normal">100%</span>
-              <span>Client Satisfaction</span>
-            </div>
-          </div>
         </motion.div>
 
         {/* Right Column: Masked Spotlight Portrait */}
@@ -86,13 +73,31 @@ export function Hero() {
         >
           {/* Ambient Green Spotlight Glow */}
           <div className="absolute w-[360px] h-[360px] md:w-[480px] md:h-[480px] rounded-full bg-primary-deep/25 blur-[120px] pointer-events-none -z-0" />
-          {/* Portrait Container with gradient edge feathering */}
-          <div className="relative w-full max-w-[420px] aspect-[0.80] overflow-hidden">
-            <img
-              alt="Waleed Rehan"
-              className="w-full h-full object-cover object-top select-none drop-shadow-[0_20px_40px_rgba(0,0,0,0.8)] [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%),linear-gradient(to_right,transparent_0%,black_15%,black_100%)] [mask-composite:intersect]"
-              src={PORTRAIT_URL}
-            />
+          <div className="relative w-full max-w-[420px]">
+            <div className="aspect-[0.80] overflow-hidden">
+              <img
+                alt="Waleed Rehan"
+                className="w-full h-full object-cover object-top select-none drop-shadow-[0_20px_40px_rgba(0,0,0,0.8)] [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%),linear-gradient(to_right,transparent_0%,black_15%,black_100%)] [mask-composite:intersect]"
+                src={PORTRAIT_URL}
+              />
+            </div>
+
+            <div className="absolute left-0 top-[12%] z-10 flex items-center gap-2 rounded-full border border-primary/20 bg-surface-raised/95 px-3 py-2 text-on-surface shadow-lg sm:-left-4 sm:gap-3 sm:px-4">
+              <span aria-hidden="true" className="grid size-8 shrink-0 place-items-center rounded-full bg-primary/10 sm:size-10">
+                <span className="size-2 rounded-full bg-primary" />
+              </span>
+              <span className="text-xs font-semibold sm:text-sm">Open to work</span>
+            </div>
+
+            <div className="absolute bottom-[13%] right-0 z-10 flex items-center gap-2 rounded-full border border-primary/20 bg-surface-raised/95 px-3 py-2 shadow-lg sm:-right-4 sm:gap-3 sm:px-4">
+              <span aria-hidden="true" className="material-symbols-outlined grid size-8 shrink-0 place-items-center rounded-full bg-primary/10 text-[18px] text-primary sm:size-10 sm:text-[20px]">
+                verified
+              </span>
+              <span className="flex flex-col gap-0.5">
+                <span className="text-sm font-semibold leading-none text-primary sm:text-base">100%</span>
+                <span className="text-xs font-semibold leading-tight text-on-surface sm:text-sm">Client Satisfaction</span>
+              </span>
+            </div>
           </div>
         </motion.div>
       </div>
