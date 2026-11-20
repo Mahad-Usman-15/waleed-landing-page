@@ -90,8 +90,8 @@ export function Hero() {
             </div>
 
             <div className="absolute bottom-[13%] right-0 z-10 flex items-center gap-2 rounded-full border border-primary/20 bg-surface-raised/95 px-3 py-2 shadow-lg sm:-right-4 sm:gap-3 sm:px-4">
-              <span aria-hidden="true" className="material-symbols-outlined grid size-8 shrink-0 place-items-center rounded-full bg-primary/10 text-[18px] text-primary sm:size-10 sm:text-[20px]">
-                verified
+              <span aria-hidden="true" className="grid size-8 shrink-0 place-items-center rounded-full bg-primary/10 text-primary sm:size-10">
+                <span className="material-symbols-outlined">verified</span>
               </span>
               <span className="flex flex-col gap-0.5">
                 <span className="text-sm font-semibold leading-none text-primary sm:text-base">100%</span>
