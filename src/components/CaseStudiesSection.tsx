@@ -64,11 +64,11 @@ export function CaseStudiesSection() {
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-6 flex flex-col items-start space-y-4">
-                <div className="flex items-center gap-3">
-                  <span className="font-headline-md text-headline-md text-primary">
+                <div className="flex items-center gap-2.5 sm:gap-3 w-full min-w-0">
+                  <span className="font-headline-md text-headline-md text-primary shrink-0">
                     {study.number}
                   </span>
-                  <span className="px-3 py-1 rounded-full bg-surface text-secondary font-label-md text-[11px] uppercase tracking-wider border border-outline">
+                  <span className="px-2.5 sm:px-3 py-1 rounded-full bg-surface text-secondary font-label-md text-[9.5px] min-[390px]:text-[10px] sm:text-[11px] uppercase tracking-[0.03em] sm:tracking-wider border border-outline whitespace-nowrap">
                     {study.category}
                   </span>
                 </div>
@@ -158,7 +158,7 @@ export function CaseStudiesSection() {
                 >
                   {activeStudy.title}
                 </h3>
-                <span className="hidden sm:inline-block px-3 py-1 rounded-full bg-surface text-secondary font-label-md text-[11px] uppercase tracking-wider border border-outline">
+                <span className="hidden sm:inline-block px-3 py-1 rounded-full bg-surface text-secondary font-label-md text-[11px] uppercase tracking-wider border border-outline whitespace-nowrap">
                   {activeStudy.category}
                 </span>
               </div>
