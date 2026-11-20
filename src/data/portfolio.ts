@@ -1,13 +1,19 @@
+import { buildCaseStudyMediaPaths, type VideoAspectRatio } from '../utils/portfolio';
+
+export const FULL_VIDEO_BASE_URL = 'https://ybsoghuhtk5ffahg.public.blob.vercel-storage.com';
+
 export interface CaseStudy {
   number: string;
+  name: string;
   category: string;
   title: string;
   description: string;
   metaLabel: string;
   metaItems: { text: string; highlight?: boolean }[];
   duration: string;
-  imageUrl: string;
-  stickyTopClass: string;
+  posterSrc: string;
+  fullSrc: string;
+  aspectRatio: VideoAspectRatio;
 }
 
 export interface ServiceItem {
@@ -80,6 +86,7 @@ export const ABOUT_TAGS = [
 export const CASE_STUDIES: CaseStudy[] = [
   {
     number: '01',
+    name: 'networking_showreel',
     category: 'Explainer motion graphics',
     title: 'Networking Showreel',
     description:
@@ -87,12 +94,12 @@ export const CASE_STUDIES: CaseStudy[] = [
     metaLabel: 'Tools:',
     metaItems: [{ text: 'After Effects' }, { text: 'Photoshop' }, { text: 'Illustrator' }],
     duration: '00:45',
-    imageUrl:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuCoR3IYDGNE8pE5AMYhPKJuIN3fAChF3ZPK-wTjKibnS2zDbWdrqG-XHJhsDvCWiDSPcLRXfvR2x5mnmXSZa8jJp2FGfhMvHl3CXKaVvilmAmTdUI7G-wom2XKNf71S68I6RpWQrXvHwpKdCrYeqja38vcrn5H9uLkLtSj2XNUEi6vum-hMaEHRBSiVUtrf9ZaEsb2NsTSx8Zs9VvGd3aJ0z1slZrL-aNzR6iCZZ6dDawEmQUZnNvfBHA',
-    stickyTopClass: 'top-24',
+    ...buildCaseStudyMediaPaths('networking_showreel', FULL_VIDEO_BASE_URL),
+    aspectRatio: '16:9',
   },
   {
     number: '02',
+    name: 'sidequest_nn',
     category: 'Event promo video',
     title: 'Sidequest.nn',
     description:
@@ -100,12 +107,12 @@ export const CASE_STUDIES: CaseStudy[] = [
     metaLabel: 'Format:',
     metaItems: [{ text: 'High-Energy Event Cut' }, { text: 'Reels & Shorts' }],
     duration: '00:25',
-    imageUrl:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuA6j4o9wpv5Ggj4H2D5HQMxWuff94cz-uivCXIroX9T1_9KTgkFiACt_4K7MFZoLnfbBSawb10_rltH1Sp3vkHEWR1hBMzoPWsdrQ2Y2g_v71sDDHneY9CrJvgLfkcH8PtO8clwyPqii3dVm6igHnBEWXVVpDVUwUcCQRqhI9PV70llyWzrxSa4QsJCzW34uV1U5QxEX1e4gIfMpebIA3VdeQOCc5hKfI48vfguLqlOFUMQPFvvXZjorA',
-    stickyTopClass: 'top-28',
+    ...buildCaseStudyMediaPaths('sidequest_nn', FULL_VIDEO_BASE_URL),
+    aspectRatio: '9:16',
   },
   {
     number: '03',
+    name: 'ibn_battuta',
     category: 'Motion graphics practice reel',
     title: 'Ibn Battuta',
     description:
@@ -113,12 +120,12 @@ export const CASE_STUDIES: CaseStudy[] = [
     metaLabel: 'Focus:',
     metaItems: [{ text: 'Character Rigging' }, { text: 'Texturing' }],
     duration: '00:28',
-    imageUrl:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuCWOSo6v_UEd4fraadp2cVmROn1S1jzvV81sy99WdCpKLM0m646zNgYRp7JlCG00dpBI7RiqyfxnRfRGtmog0OcgJlfB7BkB19C6eMLmlF7jGgmEX_QVZ3QJiioYdPs5vUFnNMARjAGLCrBne2OT7_eJKjkJ3KHWaQyAAa3Gd-qr2r1dDlChzQ4rwZsvitbyj8JLMso5tno_av5LfvnFuLR0TjsedkZUX6LJdteiwTk6NxfjnhyRlZPag',
-    stickyTopClass: 'top-32',
+    ...buildCaseStudyMediaPaths('ibn_battuta', FULL_VIDEO_BASE_URL),
+    aspectRatio: '9:16',
   },
   {
     number: '04',
+    name: 'practice_reel',
     category: 'Video editing',
     title: 'Practice Reel',
     description:
@@ -126,12 +133,12 @@ export const CASE_STUDIES: CaseStudy[] = [
     metaLabel: 'Discipline:',
     metaItems: [{ text: 'Short-form Pacing' }, { text: 'Sound Design' }],
     duration: '01:00',
-    imageUrl:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuDttxYsHUSvg1kxBdxfO7C66br8wqkxuGZHWno8fbcLa1nW2tynOxjwZX9h8mrOESR-7Et4eL4MkRQVEuT_jqzQcwtw7uT_l0h7Aa8Ht9TFIOlw8kYd2g44Gmt0Uv7rtmqiNvTEZP_XyA4odCKBOJjWntv1giOVI_Z1KOtFJjikbcp3KcLBXklBJ_KZxFFdsTve8O14zanHFn-aGWIZb3Wyi1Q4PS2ZAOsYJsOlRBqtR1Nge3uRnBbABA',
-    stickyTopClass: 'top-36',
+    ...buildCaseStudyMediaPaths('practice_reel', FULL_VIDEO_BASE_URL),
+    aspectRatio: '9:16',
   },
   {
     number: '05',
+    name: 'gracode',
     category: 'Agency promo reel',
     title: 'Gracode',
     description:
@@ -139,12 +146,12 @@ export const CASE_STUDIES: CaseStudy[] = [
     metaLabel: 'Client:',
     metaItems: [{ text: 'Gracode Studio', highlight: true }, { text: 'Premiere Pro' }],
     duration: '00:30',
-    imageUrl:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuDeVq1QEshtcppYa-CVvND_SVqLBxi1DVis2VqBsJtLbG5Ds853sZCXFIHS7hbvYON4WYSUvdCcI4G95mPVMTpWTyEfzyXwnCIcBGzLF4AbLerxcEk3MeoscAzd-NUqEsZLIPcnD8PzeS9lfPkF5YWUFIyBGV7jh944yaNY49P8Jg5jdm9pW_4c74Oi0ipMro7NbuwddESHzUg0DNEb3DOvaW3mSnovpGUDwr4g02Sk7gr_25a5BbZYsQ',
-    stickyTopClass: 'top-40',
+    ...buildCaseStudyMediaPaths('gracode', FULL_VIDEO_BASE_URL),
+    aspectRatio: '16:9',
   },
   {
     number: '06',
+    name: 'real_estate_promo',
     category: 'promo video',
     title: 'Real Estate Promo',
     description:
@@ -152,12 +159,12 @@ export const CASE_STUDIES: CaseStudy[] = [
     metaLabel: 'Application:',
     metaItems: [{ text: 'Commercial Listings' }, { text: 'Visual Explanation' }],
     duration: '00:30',
-    imageUrl:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuAUZhtnMdOzf5zehr18oPOB2cgj6xLBlbTuMaVtD7RdeEEf-FLGatdGWRMQ3Mz_70B-2blsja-DuebaDSssHSnqsSswzc9vZ4cBDpECG3BRv1o855htdpjjMix73oQjZ7Sgm75_8WJM9w1b58Rh15eppSXgDFY2nKxUZeUN6bXLXGdrIzuHXqvuNAfwCmmw-6ORw0i8fmItIMHVNleErUEbV0QORu6-KDNo9SQlZWfQuIMFrO3ltZjDdQ',
-    stickyTopClass: 'top-44',
+    ...buildCaseStudyMediaPaths('real_estate_promo', FULL_VIDEO_BASE_URL),
+    aspectRatio: '9:16',
   },
   {
     number: '07',
+    name: 'mahad_usman_intro',
     category: 'Personal intro reel',
     title: 'Mahad Usman Intro Reel',
     description:
@@ -165,12 +172,12 @@ export const CASE_STUDIES: CaseStudy[] = [
     metaLabel: 'Client:',
     metaItems: [{ text: 'Mahad Usman', highlight: true }, { text: 'Personal Brand' }],
     duration: '00:35',
-    imageUrl:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuAnWFX0NbS5O2jgHil8Ntxfccf6J0lRG4KIakIWrdIXYKTmCtNeLuzaYUiBUxpYNmHyiBPjOZm7Kzc2NK8YMt2yYrRmk14RBoXUcoq3iudlaJaDrmvEFKsn0uef_ihYIfmfsJVcX65SHMXsQo-BRc0PoOswwUZueaFdvyjsmi6Gf_wJkjoSQnMshU1kthqdry1Y_m7cRQGDLqG4NG9qThXm77JlRtvAUK2XFCsEE_nrzwgdLJ7uWIK9VA',
-    stickyTopClass: 'top-48',
+    ...buildCaseStudyMediaPaths('mahad_usman_intro', FULL_VIDEO_BASE_URL),
+    aspectRatio: '9:16',
   },
   {
     number: '08',
+    name: 'car_drift',
     category: '2D animation',
     title: 'Car Drift',
     description:
@@ -178,12 +185,12 @@ export const CASE_STUDIES: CaseStudy[] = [
     metaLabel: 'Technique:',
     metaItems: [{ text: 'Multiplane Parallax Camera' }, { text: 'Vector Rigging' }],
     duration: '00:15',
-    imageUrl:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuByRt3SrtHtTBnn7i6TuoMCLnSNDRBzfdo2E4WPvT4h0opPnSF4mM2T7nuq5AqpcAqEkF8yBn69NCjgLtYptEz2WpevvdWGZ33F-c9fp067I19UFeRJDCB3acLhhDJpCNF3p4P3f7RbxT1l-GrBRzbOw_6di0DGWjB5lFhkqJe7U-oRcrRju3lNbTHDPaqlV4oy9ANyKBiOEXZEcS2Icj3rMS8PvUuILckYwi1bbKj_SRDDeRfIwhdAEg',
-    stickyTopClass: 'top-52',
+    ...buildCaseStudyMediaPaths('car_drift', FULL_VIDEO_BASE_URL),
+    aspectRatio: '16:9',
   },
   {
     number: '09',
+    name: 'fien',
     category: 'Brand intro video',
     title: 'Fien',
     description:
@@ -191,9 +198,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     metaLabel: 'Focus:',
     metaItems: [{ text: 'E-commerce Hero Motion' }, { text: 'After Effects' }],
     duration: '00:20',
-    imageUrl:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuC7ocSTqdX9ZwERYvPwnHDV0qsBd4bndFsvQhgZqcn3j_YM-qLq2cHwse9MPEqOy_2I_Uarx5c8Y7u43z0LTHccRAr-XszEeQdAwVb1hmQTHEi_k-6bZoncMJisTorwcXEWTECdtKV7k_8FQOX4QdQCcMjUFzu-1lsoQ65atAID-vTY8HMtXmEwsiFDoiRR33ZMk74cYWPqbHQ-YzCTBmosAAUkXXB1oNRViYOhxCKggHpBVmla2qG8vg',
-    stickyTopClass: 'top-56',
+    ...buildCaseStudyMediaPaths('fien', FULL_VIDEO_BASE_URL),
+    aspectRatio: '16:9',
   },
 ];
 

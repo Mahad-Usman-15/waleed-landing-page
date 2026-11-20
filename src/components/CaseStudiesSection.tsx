@@ -14,6 +14,8 @@ import {
   getAdjacentIndex,
   getCaseStudyStackRange,
   getVisibleCaseStudies,
+  resolveVideoAspectRatio,
+  type VideoAspectRatio,
   WHATSAPP_MESSAGES,
 } from '../utils/portfolio';
 import { WhatsAppIcon } from './Icons';
@@ -99,8 +101,12 @@ function CaseStudyStackCard({
             className="w-full aspect-video rounded-xl bg-surface border border-outline relative overflow-hidden group flex items-center justify-center cursor-pointer text-left"
           >
             <img
-              src={study.imageUrl}
+              src={study.posterSrc}
               alt={study.title}
+              loading="lazy"
+              decoding="async"
+              onLoad={(e) => e.currentTarget.classList.remove('opacity-0')}
+              onError={(e) => e.currentTarget.classList.add('opacity-0')}
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-300" />
@@ -167,7 +173,11 @@ function usePrefersReducedMotion(): boolean {
 export function CaseStudiesSection() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [showAll, setShowAll] = useState(false);
+  const [isVideoLoading, setIsVideoLoading] = useState(false);
+  const [hasVideoError, setHasVideoError] = useState(false);
+  const [resolvedAspectRatio, setResolvedAspectRatio] = useState<VideoAspectRatio | null>(null);
   const stackContainerRef = useRef<HTMLDivElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const shouldReduceMotion = usePrefersReducedMotion();
 
   const { scrollYProgress } = useScroll({
@@ -175,29 +185,63 @@ export function CaseStudiesSection() {
     offset: ['start 120px', 'end 88%'],
   });
 
+  const openProjectModal = (index: number) => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+    setIsVideoLoading(true);
+    setHasVideoError(false);
+    setResolvedAspectRatio(null);
+    setSelectedIndex(index);
+  };
+
+  const closeProjectModal = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+    setIsVideoLoading(false);
+    setHasVideoError(false);
+    setResolvedAspectRatio(null);
+    setSelectedIndex(null);
+  };
+
   useEffect(() => {
     if (selectedIndex === null) {
       return;
     }
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setSelectedIndex(null);
+        closeProjectModal();
       } else if (e.key === 'ArrowRight') {
-        setSelectedIndex((prev) =>
-          prev === null ? null : getAdjacentIndex(prev, 'next', CASE_STUDIES.length)
-        );
+        openProjectModal(getAdjacentIndex(selectedIndex, 'next', CASE_STUDIES.length));
       } else if (e.key === 'ArrowLeft') {
-        setSelectedIndex((prev) =>
-          prev === null ? null : getAdjacentIndex(prev, 'prev', CASE_STUDIES.length)
-        );
+        openProjectModal(getAdjacentIndex(selectedIndex, 'prev', CASE_STUDIES.length));
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedIndex]);
 
+  useEffect(() => {
+    const videoEl = videoRef.current;
+    if (selectedIndex === null || !videoEl) {
+      return;
+    }
+    videoEl.muted = false;
+    videoEl.play().catch(() => {
+      // Browser autoplay fallback handled cleanly via visible controls
+    });
+    return () => {
+      videoEl.pause();
+    };
+  }, [selectedIndex]);
+
   const visibleStudies = getVisibleCaseStudies(CASE_STUDIES, showAll);
   const activeStudy = selectedIndex !== null ? CASE_STUDIES[selectedIndex] : null;
+  const activeAspectRatio: VideoAspectRatio = activeStudy
+    ? resolvedAspectRatio ?? activeStudy.aspectRatio
+    : '16:9';
+  const isVerticalModal = activeAspectRatio === '9:16';
 
   return (
     <section
@@ -230,7 +274,7 @@ export function CaseStudiesSection() {
             total={visibleStudies.length}
             scrollYProgress={scrollYProgress}
             shouldReduceMotion={shouldReduceMotion}
-            onPreview={setSelectedIndex}
+            onPreview={openProjectModal}
           />
         ))}
         {/* Flow spacer extends sticky containing-block content height below the final card */}
@@ -253,17 +297,17 @@ export function CaseStudiesSection() {
         </div>
       )}
 
-      {/* Case Study Preview Modal */}
+      {/* Case Study Video Modal */}
       {activeStudy && selectedIndex !== null && (
         <div
           role="dialog"
           aria-modal="true"
           aria-labelledby="case-study-modal-title"
           className="fixed inset-0 z-[60] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6"
-          onClick={() => setSelectedIndex(null)}
+          onClick={closeProjectModal}
         >
           <div
-            className="w-full max-w-4xl rounded-2xl bg-[#0B120D] border border-outline overflow-hidden shadow-2xl"
+            className="w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-2xl bg-[#0B120D] border border-outline shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between px-6 py-4 border-b border-outline">
@@ -284,22 +328,77 @@ export function CaseStudiesSection() {
               <button
                 type="button"
                 aria-label="Close project preview"
-                onClick={() => setSelectedIndex(null)}
-                className="w-9 h-9 rounded-full border border-outline text-secondary hover:text-primary hover:border-primary flex items-center justify-center transition-colors"
+                onClick={closeProjectModal}
+                className="w-9 h-9 rounded-full border border-outline text-secondary hover:text-primary hover:border-primary flex items-center justify-center transition-colors cursor-pointer"
               >
                 <span className="material-symbols-outlined text-[20px]">close</span>
               </button>
             </div>
 
-            <div className="relative w-full aspect-video bg-surface">
-              <img
-                src={activeStudy.imageUrl}
-                alt={activeStudy.title}
-                className="w-full h-full object-cover"
-              />
-              <span className="absolute bottom-3 right-3 font-timecode text-timecode text-on-surface bg-surface/85 px-2.5 py-1 rounded border border-outline">
-                {activeStudy.duration}
-              </span>
+            <div className="w-full bg-surface flex items-center justify-center">
+              <div
+                data-testid="modal-video-frame"
+                data-aspect-ratio={activeAspectRatio}
+                className={
+                  isVerticalModal
+                    ? 'relative aspect-[9/16] h-[58vh] sm:h-[64vh] max-h-[620px] max-w-full bg-black overflow-hidden'
+                    : 'relative w-full aspect-video bg-black overflow-hidden'
+                }
+              >
+                <video
+                  ref={videoRef}
+                  key={activeStudy.fullSrc}
+                  src={activeStudy.fullSrc}
+                  poster={activeStudy.posterSrc}
+                  controls
+                  autoPlay
+                  playsInline
+                  preload="auto"
+                  aria-label={`${activeStudy.title} video player`}
+                  onLoadStart={() => {
+                    setIsVideoLoading(true);
+                    setHasVideoError(false);
+                  }}
+                  onLoadedMetadata={(e) => {
+                    const video = e.currentTarget;
+                    setResolvedAspectRatio(
+                      resolveVideoAspectRatio(
+                        video.videoWidth,
+                        video.videoHeight,
+                        activeStudy.aspectRatio
+                      )
+                    );
+                  }}
+                  onLoadedData={() => setIsVideoLoading(false)}
+                  onPlaying={() => setIsVideoLoading(false)}
+                  onError={() => {
+                    setIsVideoLoading(false);
+                    setHasVideoError(true);
+                  }}
+                  className="w-full h-full object-contain bg-black"
+                />
+
+                {isVideoLoading && !hasVideoError && (
+                  <div
+                    role="status"
+                    aria-label="Loading video"
+                    className="absolute inset-0 flex items-center justify-center bg-black/50 pointer-events-none z-10"
+                  >
+                    <span className="w-9 h-9 rounded-full border-2 border-primary/30 border-t-primary animate-spin" />
+                  </div>
+                )}
+
+                {hasVideoError && (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/80 px-4 text-center pointer-events-none z-10">
+                    <span className="material-symbols-outlined text-[28px] text-primary">
+                      videocam_off
+                    </span>
+                    <span className="font-label-md text-xs uppercase tracking-wider text-secondary">
+                      Video unavailable
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -311,9 +410,9 @@ export function CaseStudiesSection() {
                   type="button"
                   aria-label="Previous project"
                   onClick={() =>
-                    setSelectedIndex(getAdjacentIndex(selectedIndex, 'prev', CASE_STUDIES.length))
+                    openProjectModal(getAdjacentIndex(selectedIndex, 'prev', CASE_STUDIES.length))
                   }
-                  className="px-3 sm:px-4 py-2 rounded-full border border-outline text-secondary hover:text-primary hover:border-primary font-label-md text-xs uppercase tracking-wider transition-colors whitespace-nowrap shrink-0"
+                  className="px-3 sm:px-4 py-2 rounded-full border border-outline text-secondary hover:text-primary hover:border-primary font-label-md text-xs uppercase tracking-wider transition-colors whitespace-nowrap shrink-0 cursor-pointer"
                 >
                   Prev
                 </button>
@@ -321,9 +420,9 @@ export function CaseStudiesSection() {
                   type="button"
                   aria-label="Next project"
                   onClick={() =>
-                    setSelectedIndex(getAdjacentIndex(selectedIndex, 'next', CASE_STUDIES.length))
+                    openProjectModal(getAdjacentIndex(selectedIndex, 'next', CASE_STUDIES.length))
                   }
-                  className="px-3 sm:px-4 py-2 rounded-full border border-outline text-secondary hover:text-primary hover:border-primary font-label-md text-xs uppercase tracking-wider transition-colors whitespace-nowrap shrink-0"
+                  className="px-3 sm:px-4 py-2 rounded-full border border-outline text-secondary hover:text-primary hover:border-primary font-label-md text-xs uppercase tracking-wider transition-colors whitespace-nowrap shrink-0 cursor-pointer"
                 >
                   Next
                 </button>

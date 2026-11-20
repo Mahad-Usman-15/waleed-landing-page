@@ -135,3 +135,25 @@ export function computeCaseStudyStackValues(
   };
 }
 
+export type VideoAspectRatio = '16:9' | '9:16';
+
+export function buildCaseStudyMediaPaths(
+  name: string,
+  fullVideoBaseUrl: string
+): { posterSrc: string; fullSrc: string } {
+  return {
+    posterSrc: `/posters/${name}.jpg`,
+    fullSrc: `${fullVideoBaseUrl}/${name}_full.mp4`,
+  };
+}
+
+export function resolveVideoAspectRatio(
+  videoWidth: number,
+  videoHeight: number,
+  fallback: VideoAspectRatio
+): VideoAspectRatio {
+  if (videoWidth > 0 && videoHeight > 0) {
+    return videoHeight > videoWidth ? '9:16' : '16:9';
+  }
+  return fallback;
+}

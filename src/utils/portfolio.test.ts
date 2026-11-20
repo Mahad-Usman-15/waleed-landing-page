@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  buildCaseStudyMediaPaths,
   buildWhatsAppUrl,
   clampSeconds,
   computeCaseStudyStackValues,
@@ -13,6 +14,7 @@ import {
   getProgressPercent,
   getSwipeDirection,
   getVisibleCaseStudies,
+  resolveVideoAspectRatio,
   REVIEWS_AUTO_ADVANCE_MS,
   REVIEWS_MOBILE_MEDIA_QUERY,
   WHATSAPP_BASE_URL,
@@ -122,3 +124,20 @@ test('computeCaseStudyStackValues scales and dims covered cards and disables und
   assert.deepEqual(computeCaseStudyStackValues(0.75, 0, 4, true), { scale: 1, brightness: 1 });
 });
 
+test('buildCaseStudyMediaPaths builds posterSrc and fullSrc from base url', () => {
+  assert.deepEqual(buildCaseStudyMediaPaths('car_drift', ''), {
+    posterSrc: '/posters/car_drift.jpg',
+    fullSrc: '/car_drift_full.mp4',
+  });
+  assert.deepEqual(buildCaseStudyMediaPaths('sidequest_nn', 'https://cdn.example.com'), {
+    posterSrc: '/posters/sidequest_nn.jpg',
+    fullSrc: 'https://cdn.example.com/sidequest_nn_full.mp4',
+  });
+});
+
+test('resolveVideoAspectRatio detects vertical vs horizontal video dimensions with fallback', () => {
+  assert.equal(resolveVideoAspectRatio(1080, 1920, '16:9'), '9:16');
+  assert.equal(resolveVideoAspectRatio(1920, 1080, '9:16'), '16:9');
+  assert.equal(resolveVideoAspectRatio(0, 0, '9:16'), '9:16');
+  assert.equal(resolveVideoAspectRatio(0, 0, '16:9'), '16:9');
+});
