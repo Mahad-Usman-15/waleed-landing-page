@@ -139,11 +139,12 @@ export type VideoAspectRatio = '16:9' | '9:16';
 
 export function buildCaseStudyMediaPaths(
   name: string,
-  fullVideoBaseUrl: string
+  fullVideoBaseUrl: string,
+  posterFilename: string,
 ): { posterSrc: string; fullSrc: string } {
   return {
-    posterSrc: `/posters/${name}.jpg`,
-    fullSrc: `${fullVideoBaseUrl}/${name}_full.mp4`,
+    posterSrc: `/posters/${encodeURIComponent(posterFilename)}`,
+    fullSrc: `${fullVideoBaseUrl}/${name}.mp4`,
   };
 }
 
