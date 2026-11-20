@@ -94,7 +94,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     metaLabel: 'Tools:',
     metaItems: [{ text: 'After Effects' }, { text: 'Photoshop' }, { text: 'Illustrator' }],
     duration: '00:45',
-    ...buildCaseStudyMediaPaths('networking_showreel', FULL_VIDEO_BASE_URL),
+    ...buildCaseStudyMediaPaths('networking_showreel', FULL_VIDEO_BASE_URL, 'NETWORKING SHOWREEL.jpeg'),
     aspectRatio: '16:9',
   },
   {
@@ -107,7 +107,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     metaLabel: 'Format:',
     metaItems: [{ text: 'High-Energy Event Cut' }, { text: 'Reels & Shorts' }],
     duration: '00:25',
-    ...buildCaseStudyMediaPaths('sidequest_nn', FULL_VIDEO_BASE_URL),
+    ...buildCaseStudyMediaPaths('sidequest_nn', FULL_VIDEO_BASE_URL, 'sidequest.jpeg'),
     aspectRatio: '9:16',
   },
   {
@@ -120,7 +120,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     metaLabel: 'Focus:',
     metaItems: [{ text: 'Character Rigging' }, { text: 'Texturing' }],
     duration: '00:28',
-    ...buildCaseStudyMediaPaths('ibn_battuta', FULL_VIDEO_BASE_URL),
+    ...buildCaseStudyMediaPaths('ibn_battuta', FULL_VIDEO_BASE_URL, 'IBN BATTUTA.jpeg'),
     aspectRatio: '9:16',
   },
   {
@@ -133,7 +133,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     metaLabel: 'Discipline:',
     metaItems: [{ text: 'Short-form Pacing' }, { text: 'Sound Design' }],
     duration: '01:00',
-    ...buildCaseStudyMediaPaths('practice_reel', FULL_VIDEO_BASE_URL),
+    ...buildCaseStudyMediaPaths('practice_reel', FULL_VIDEO_BASE_URL, 'PRACTICE REEL.jpeg'),
     aspectRatio: '9:16',
   },
   {
@@ -146,7 +146,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     metaLabel: 'Client:',
     metaItems: [{ text: 'Gracode Studio', highlight: true }, { text: 'Premiere Pro' }],
     duration: '00:30',
-    ...buildCaseStudyMediaPaths('gracode', FULL_VIDEO_BASE_URL),
+    ...buildCaseStudyMediaPaths('gracode', FULL_VIDEO_BASE_URL, 'GRACODE (2).jpeg'),
     aspectRatio: '16:9',
   },
   {
@@ -159,7 +159,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     metaLabel: 'Application:',
     metaItems: [{ text: 'Commercial Listings' }, { text: 'Visual Explanation' }],
     duration: '00:30',
-    ...buildCaseStudyMediaPaths('real_estate_promo', FULL_VIDEO_BASE_URL),
+    ...buildCaseStudyMediaPaths('real_estate_promo', FULL_VIDEO_BASE_URL, 'REAL ESTATE PROMO.jpeg'),
     aspectRatio: '9:16',
   },
   {
@@ -172,7 +172,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     metaLabel: 'Client:',
     metaItems: [{ text: 'Mahad Usman', highlight: true }, { text: 'Personal Brand' }],
     duration: '00:35',
-    ...buildCaseStudyMediaPaths('mahad_usman_intro', FULL_VIDEO_BASE_URL),
+    ...buildCaseStudyMediaPaths('mahad_usman_intro', FULL_VIDEO_BASE_URL, 'MAHAD USMAN INTRO REEL.jpeg'),
     aspectRatio: '9:16',
   },
   {
@@ -185,7 +185,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     metaLabel: 'Technique:',
     metaItems: [{ text: 'Multiplane Parallax Camera' }, { text: 'Vector Rigging' }],
     duration: '00:15',
-    ...buildCaseStudyMediaPaths('car_drift', FULL_VIDEO_BASE_URL),
+    ...buildCaseStudyMediaPaths('car_drift', FULL_VIDEO_BASE_URL, 'CAR DRIFT.jpeg'),
     aspectRatio: '16:9',
   },
   {
@@ -198,7 +198,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     metaLabel: 'Focus:',
     metaItems: [{ text: 'E-commerce Hero Motion' }, { text: 'After Effects' }],
     duration: '00:20',
-    ...buildCaseStudyMediaPaths('fien', FULL_VIDEO_BASE_URL),
+    ...buildCaseStudyMediaPaths('fien', FULL_VIDEO_BASE_URL, 'FIEN.jpeg'),
     aspectRatio: '16:9',
   },
 ];

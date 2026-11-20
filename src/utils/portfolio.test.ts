@@ -124,14 +124,14 @@ test('computeCaseStudyStackValues scales and dims covered cards and disables und
   assert.deepEqual(computeCaseStudyStackValues(0.75, 0, 4, true), { scale: 1, brightness: 1 });
 });
 
-test('buildCaseStudyMediaPaths builds posterSrc and fullSrc from base url', () => {
-  assert.deepEqual(buildCaseStudyMediaPaths('car_drift', ''), {
-    posterSrc: '/posters/car_drift.jpg',
-    fullSrc: '/car_drift_full.mp4',
+test('buildCaseStudyMediaPaths uses the uploaded video and exact poster filenames', () => {
+  assert.deepEqual(buildCaseStudyMediaPaths('car_drift', '', 'CAR DRIFT.jpeg'), {
+    posterSrc: '/posters/CAR%20DRIFT.jpeg',
+    fullSrc: '/car_drift.mp4',
   });
-  assert.deepEqual(buildCaseStudyMediaPaths('sidequest_nn', 'https://cdn.example.com'), {
-    posterSrc: '/posters/sidequest_nn.jpg',
-    fullSrc: 'https://cdn.example.com/sidequest_nn_full.mp4',
+  assert.deepEqual(buildCaseStudyMediaPaths('sidequest_nn', 'https://cdn.example.com', 'sidequest.jpeg'), {
+    posterSrc: '/posters/sidequest.jpeg',
+    fullSrc: 'https://cdn.example.com/sidequest_nn.mp4',
   });
 });
 
