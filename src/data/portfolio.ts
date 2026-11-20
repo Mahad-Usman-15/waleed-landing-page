@@ -2,6 +2,14 @@ import { buildCaseStudyMediaPaths, type VideoAspectRatio } from '../utils/portfo
 
 export const FULL_VIDEO_BASE_URL = 'https://ybsoghuhtk5ffahg.public.blob.vercel-storage.com';
 
+const networkingShowreelMedia = buildCaseStudyMediaPaths(
+  'networking_showreel',
+  FULL_VIDEO_BASE_URL,
+  'NETWORKING SHOWREEL.jpeg',
+);
+
+export const SHOWREEL_VIDEO_URL = networkingShowreelMedia.fullSrc;
+
 export interface CaseStudy {
   number: string;
   name: string;
@@ -94,7 +102,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     metaLabel: 'Tools:',
     metaItems: [{ text: 'After Effects' }, { text: 'Photoshop' }, { text: 'Illustrator' }],
     duration: '00:45',
-    ...buildCaseStudyMediaPaths('networking_showreel', FULL_VIDEO_BASE_URL, 'NETWORKING SHOWREEL.jpeg'),
+    ...networkingShowreelMedia,
     aspectRatio: '16:9',
   },
   {
