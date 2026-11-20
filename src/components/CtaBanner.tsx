@@ -28,12 +28,12 @@ export function CtaBanner() {
           </div>
           <div className="z-10 shrink-0 self-start md:self-center">
             <a
-              className="inline-flex items-center justify-center gap-3 px-7 py-3.5 sm:px-8 sm:py-4 rounded-full bg-[#0a120c] hover:bg-black text-white font-button text-[14px] sm:text-[15px] font-semibold transition-all duration-200 shadow-xl hover:scale-[1.02] active:scale-95 border border-[#1b3420]/40"
+              className="inline-flex items-center justify-center gap-2 min-[390px]:gap-2.5 sm:gap-3 px-5 min-[390px]:px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#0a120c] hover:bg-black text-white font-button text-[13px] min-[390px]:text-[14px] sm:text-[15px] font-semibold transition-all duration-200 shadow-xl hover:scale-[1.02] active:scale-95 border border-[#1b3420]/40 whitespace-nowrap"
               href={buildWhatsAppUrl(WHATSAPP_MESSAGES.bannerAndFooter)}
               rel="noopener noreferrer"
               target="_blank"
             >
-              <WhatsAppIcon className="w-5 h-5 shrink-0 fill-current" />
+              <WhatsAppIcon className="w-4 h-4 min-[390px]:w-5 min-[390px]:h-5 shrink-0 fill-current" />
               <span>Message me on WhatsApp</span>
             </a>
           </div>

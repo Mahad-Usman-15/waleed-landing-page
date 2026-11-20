@@ -95,7 +95,7 @@ export function CaseStudiesSection() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Request a project similar to ${study.title} on WhatsApp`}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-surface border border-outline hover:border-primary text-primary hover:bg-primary-container hover:text-on-primary-container font-button text-sm font-semibold transition-all duration-200"
+                    className="inline-flex items-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-surface border border-outline hover:border-primary text-primary hover:bg-primary-container hover:text-on-primary-container font-button text-[13px] sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap shrink-0"
                   >
                     <WhatsAppIcon className="w-4 h-4 shrink-0 fill-current" />
                     <span>Request similar</span>
@@ -187,14 +187,14 @@ export function CaseStudiesSection() {
               <p className="font-body-md text-[16px] md:text-[17px] lg:text-[18px] text-secondary max-w-xl leading-relaxed">
                 {activeStudy.description}
               </p>
-              <div className="flex items-center gap-3 shrink-0">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3 shrink-0">
                 <button
                   type="button"
                   aria-label="Previous project"
                   onClick={() =>
                     setSelectedIndex(getAdjacentIndex(selectedIndex, 'prev', CASE_STUDIES.length))
                   }
-                  className="px-4 py-2 rounded-full border border-outline text-secondary hover:text-primary hover:border-primary font-label-md text-xs uppercase tracking-wider transition-colors"
+                  className="px-3 sm:px-4 py-2 rounded-full border border-outline text-secondary hover:text-primary hover:border-primary font-label-md text-xs uppercase tracking-wider transition-colors whitespace-nowrap shrink-0"
                 >
                   Prev
                 </button>
@@ -204,7 +204,7 @@ export function CaseStudiesSection() {
                   onClick={() =>
                     setSelectedIndex(getAdjacentIndex(selectedIndex, 'next', CASE_STUDIES.length))
                   }
-                  className="px-4 py-2 rounded-full border border-outline text-secondary hover:text-primary hover:border-primary font-label-md text-xs uppercase tracking-wider transition-colors"
+                  className="px-3 sm:px-4 py-2 rounded-full border border-outline text-secondary hover:text-primary hover:border-primary font-label-md text-xs uppercase tracking-wider transition-colors whitespace-nowrap shrink-0"
                 >
                   Next
                 </button>
@@ -212,7 +212,7 @@ export function CaseStudiesSection() {
                   href={buildWhatsAppUrl(WHATSAPP_MESSAGES.caseStudy(activeStudy.title))}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary-container hover:bg-primary-hover text-on-primary-container font-button text-sm font-semibold transition-colors"
+                  className="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-2 rounded-full bg-primary-container hover:bg-primary-hover text-on-primary-container font-button text-[13px] sm:text-sm font-semibold transition-colors whitespace-nowrap shrink-0"
                 >
                   <WhatsAppIcon className="w-4 h-4 shrink-0 fill-current" />
                   <span>Request similar</span>
