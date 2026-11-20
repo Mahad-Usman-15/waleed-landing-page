@@ -10,6 +10,12 @@ export const REVEAL_VIEWPORT = {
   amount: REVEAL_VIEWPORT_AMOUNT,
 } as const;
 
+export const SCROLL_PROGRESS_SPRING = {
+  stiffness: 280,
+  damping: 32,
+  restDelta: 0.001,
+} as const;
+
 export function getRevealTransition(shouldReduceMotion: boolean | null, delay = 0) {
   if (shouldReduceMotion) {
     return { duration: 0, delay: 0 };

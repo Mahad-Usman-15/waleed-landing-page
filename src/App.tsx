@@ -8,6 +8,7 @@ import { Hero } from './components/Hero';
 import { Navbar } from './components/Navbar';
 import { ProcessSection } from './components/ProcessSection';
 import { ReviewsSection } from './components/ReviewsSection';
+import { ScrollProgressBar } from './components/ScrollProgressBar';
 import { ServicesSection } from './components/ServicesSection';
 import { ShowreelSection } from './components/ShowreelSection';
 import { SkillsMarquee } from './components/SkillsMarquee';
@@ -15,6 +16,7 @@ import { SkillsMarquee } from './components/SkillsMarquee';
 export default function App() {
   return (
     <MotionConfig reducedMotion="user">
+      <ScrollProgressBar />
       <Navbar />
       <main className="w-full pt-20 bg-surface min-h-[calc(100vh-80px)]">
         <div className="flex flex-col w-full text-on-surface bg-surface selection:bg-primary selection:text-on-primary font-body-md overflow-x-clip">

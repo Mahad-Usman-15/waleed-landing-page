@@ -8,6 +8,7 @@ import {
   REVEAL_DISTANCE_PX,
   REVEAL_DURATION_S,
   REVEAL_VIEWPORT,
+  SCROLL_PROGRESS_SPRING,
   STAGGER_DELAY_S,
 } from './motion';
 
@@ -17,6 +18,9 @@ test('reveal constants match specification', () => {
   assert.equal(REVEAL_VIEWPORT.once, true);
   assert.equal(REVEAL_VIEWPORT.amount, 0.15);
   assert.equal(STAGGER_DELAY_S, 0.08);
+  assert.equal(SCROLL_PROGRESS_SPRING.stiffness, 280);
+  assert.equal(SCROLL_PROGRESS_SPRING.damping, 32);
+  assert.equal(SCROLL_PROGRESS_SPRING.restDelta, 0.001);
 });
 
 test('getRevealVariants fades up 24px over 0.6s when motion is enabled', () => {
