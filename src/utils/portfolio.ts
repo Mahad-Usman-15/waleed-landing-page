@@ -1,25 +1,3 @@
-export function formatTimecode(totalSeconds: number): string {
-  const clamped = Math.max(0, Math.floor(totalSeconds));
-  const minutes = Math.floor(clamped / 60);
-  const seconds = clamped % 60;
-  return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-}
-
-export function getProgressPercent(currentSeconds: number, totalSeconds: number): number {
-  if (totalSeconds <= 0) {
-    return 0;
-  }
-  const ratio = (currentSeconds / totalSeconds) * 100;
-  return Math.min(100, Math.max(0, Math.round(ratio * 100) / 100));
-}
-
-export function clampSeconds(value: number, durationSeconds: number): number {
-  if (durationSeconds <= 0) {
-    return 0;
-  }
-  return Math.min(durationSeconds, Math.max(0, Math.round(value)));
-}
-
 export const WHATSAPP_BASE_URL = 'https://wa.me/923358150666';
 
 export function buildWhatsAppUrl(message: string): string {
@@ -87,11 +65,6 @@ export function getVisibleCaseStudies<T>(studies: readonly T[], showAll: boolean
   return showAll ? [...studies] : studies.slice(0, FEATURED_CASE_STUDIES_COUNT);
 }
 
-export function getCaseStudyStickyTop(index: number, isMobile: boolean): number {
-  const safeIndex = Math.max(0, index);
-  return isMobile ? 72 + safeIndex * 8 : 96 + safeIndex * 16;
-}
-
 export function getCaseStudyStackRange(
   index: number,
   total: number
@@ -114,24 +87,6 @@ export function getCaseStudyStackRange(
     end: 1,
     targetScale: CASE_STUDY_STACK_MIN_SCALE,
     targetBrightness: CASE_STUDY_STACK_MIN_BRIGHTNESS,
-  };
-}
-
-export function computeCaseStudyStackValues(
-  progress: number,
-  index: number,
-  total: number,
-  reducedMotion: boolean
-): { scale: number; brightness: number } {
-  if (reducedMotion || total <= 1 || index >= total - 1) {
-    return { scale: 1, brightness: 1 };
-  }
-  const { start, end, targetScale, targetBrightness } = getCaseStudyStackRange(index, total);
-  const span = Math.max(0.0001, end - start);
-  const t = Math.min(1, Math.max(0, (progress - start) / span));
-  return {
-    scale: Math.round((1 - t * (1 - targetScale)) * 10000) / 10000,
-    brightness: Math.round((1 - t * (1 - targetBrightness)) * 10000) / 10000,
   };
 }
 

@@ -6,17 +6,9 @@ function MarqueeTrack({ ariaHidden = false }: { ariaHidden?: boolean }) {
     <div aria-hidden={ariaHidden || undefined} className="flex items-center shrink-0">
       {MARQUEE_SKILLS.map((skill) => (
         <div key={skill.label} className="flex items-center shrink-0">
-          {skill.subLabel ? (
-            <div className="flex flex-col items-start justify-center mx-6 leading-none">
-              <span className="font-headline-md text-[28px] md:text-[40px] leading-none uppercase text-[#EAF3EC]">
-                {skill.label}
-              </span>
-            </div>
-          ) : (
-            <span className="font-headline-md text-[28px] md:text-[40px] leading-none uppercase text-[#EAF3EC] mx-6">
-              {skill.label}
-            </span>
-          )}
+          <span className="font-headline-md text-[28px] md:text-[40px] leading-none uppercase text-[#EAF3EC] mx-6">
+            {skill.label}
+          </span>
           <MarqueePlayDot />
         </div>
       ))}
@@ -36,7 +28,6 @@ export function SkillsMarquee() {
           <MarqueeTrack ariaHidden />
         </div>
       </div>
-      <div className="w-full max-w-[1320px] mx-auto px-gutter pb-2.5 pt-1 flex justify-end" />
     </section>
   );
 }

@@ -76,13 +76,13 @@ export const NAV_LINKS = [
   { label: 'Reviews', href: '#reviews', path: 'reviews' },
 ];
 
-export const MARQUEE_SKILLS: { label: string; subLabel?: string }[] = [
+export const MARQUEE_SKILLS: { label: string }[] = [
   { label: 'ADOBE PREMIERE PRO' },
   { label: 'ADOBE AFTER EFFECTS' },
   { label: 'ADOBE PHOTOSHOP' },
   { label: 'ADOBE ILLUSTRATOR' },
   { label: 'LUMETRI COLOR' },
-  { label: 'ELEVENLABS'},
+  { label: 'ELEVENLABS' },
 ];
 
 export const ABOUT_TAGS = [

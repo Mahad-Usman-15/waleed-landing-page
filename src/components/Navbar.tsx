@@ -21,7 +21,7 @@ export function Navbar() {
           <span>WALEED REHAN</span>
         </a>
 
-        <nav className="hidden md:flex items-center gap-space-lg" data-active-classes="text-on-surface font-semibold">
+        <nav className="hidden md:flex items-center gap-space-lg">
           {NAV_LINKS.map((link) => {
             const isActive = activePath === link.path;
             return (

@@ -99,9 +99,6 @@ export function ProcessSection() {
                     variants={getStepVariants(idx)}
                     className="flex justify-center relative"
                   >
-                    {idx === 0 && (
-                      <div className="absolute -top-5 left-1/2 -translate-x-1/2 text-[#34E27A] flex items-center justify-center" />
-                    )}
                     <button
                       type="button"
                       aria-label={`Step ${step.number}: ${step.title}`}

@@ -3,15 +3,10 @@ import assert from 'node:assert/strict';
 import {
   buildCaseStudyMediaPaths,
   buildWhatsAppUrl,
-  clampSeconds,
-  computeCaseStudyStackValues,
   FEATURED_CASE_STUDIES_COUNT,
-  formatTimecode,
   getAdjacentIndex,
   getCaseStudyStackRange,
-  getCaseStudyStickyTop,
   getLoopedSlideIndex,
-  getProgressPercent,
   getSwipeDirection,
   getVisibleCaseStudies,
   resolveVideoAspectRatio,
@@ -20,28 +15,6 @@ import {
   WHATSAPP_BASE_URL,
   WHATSAPP_MESSAGES,
 } from './portfolio';
-
-test('formatTimecode formats zero and single/double digit seconds', () => {
-  assert.equal(formatTimecode(0), '00:00');
-  assert.equal(formatTimecode(24), '00:24');
-  assert.equal(formatTimecode(60), '01:00');
-  assert.equal(formatTimecode(125), '02:05');
-  assert.equal(formatTimecode(-5), '00:00');
-});
-
-test('getProgressPercent calculates bounded percentages', () => {
-  assert.equal(getProgressPercent(24, 60), 40);
-  assert.equal(getProgressPercent(0, 60), 0);
-  assert.equal(getProgressPercent(75, 60), 100);
-  assert.equal(getProgressPercent(10, 0), 0);
-});
-
-test('clampSeconds bounds scrubber positions safely', () => {
-  assert.equal(clampSeconds(-10, 60), 0);
-  assert.equal(clampSeconds(24.4, 60), 24);
-  assert.equal(clampSeconds(90, 60), 60);
-  assert.equal(clampSeconds(10, 0), 0);
-});
 
 test('getAdjacentIndex wraps cleanly across case study items', () => {
   assert.equal(getAdjacentIndex(0, 'prev', 9), 8);
@@ -102,26 +75,19 @@ test('getVisibleCaseStudies slices featured projects and expands cleanly', () =>
   assert.deepEqual(getVisibleCaseStudies(sample, true), sample);
 });
 
-test('getCaseStudyStickyTop computes desktop and mobile sticky offsets', () => {
-  assert.equal(getCaseStudyStickyTop(0, false), 96);
-  assert.equal(getCaseStudyStickyTop(1, false), 112);
-  assert.equal(getCaseStudyStickyTop(3, false), 144);
-  assert.equal(getCaseStudyStickyTop(0, true), 72);
-  assert.equal(getCaseStudyStickyTop(1, true), 80);
-  assert.equal(getCaseStudyStickyTop(3, true), 96);
-});
-
-test('computeCaseStudyStackValues scales and dims covered cards and disables under reduced motion', () => {
+test('getCaseStudyStackRange returns target range and clamps final card', () => {
   assert.deepEqual(getCaseStudyStackRange(3, 4), {
     start: 0,
     end: 1,
     targetScale: 1,
     targetBrightness: 1,
   });
-  assert.deepEqual(computeCaseStudyStackValues(0, 0, 4, false), { scale: 1, brightness: 1 });
-  assert.deepEqual(computeCaseStudyStackValues(1, 0, 4, false), { scale: 0.95, brightness: 0.78 });
-  assert.deepEqual(computeCaseStudyStackValues(1, 3, 4, false), { scale: 1, brightness: 1 });
-  assert.deepEqual(computeCaseStudyStackValues(0.75, 0, 4, true), { scale: 1, brightness: 1 });
+  assert.deepEqual(getCaseStudyStackRange(0, 4), {
+    start: 0,
+    end: 1,
+    targetScale: 0.95,
+    targetBrightness: 0.78,
+  });
 });
 
 test('buildCaseStudyMediaPaths uses the uploaded video and exact poster filenames', () => {
