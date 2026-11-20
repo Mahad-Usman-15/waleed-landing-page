@@ -26,7 +26,7 @@ export function Hero() {
           {/* Outlined Tag Pill */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-raised border border-outline mb-6">
             <span className="w-2 h-2 rounded-full bg-primary-container animate-pulse" />
-            <span className="font-label-md text-label-md text-[11px] text-primary uppercase tracking-widest">
+            <span className="font-label-md text-label-md text-[9.5px] min-[390px]:text-[10.5px] sm:text-[11px] text-primary uppercase tracking-[0.04em] min-[390px]:tracking-[0.07em] sm:tracking-widest whitespace-nowrap">
               Motion designer and video editor
             </span>
           </div>
