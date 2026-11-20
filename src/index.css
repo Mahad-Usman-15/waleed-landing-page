@@ -168,6 +168,19 @@
   }
 }
 
+@layer components {
+  .case-study-sticky-card {
+    position: sticky;
+    top: calc(72px + var(--card-index, 0) * 8px);
+  }
+
+  @media (min-width: 768px) {
+    .case-study-sticky-card {
+      top: calc(96px + var(--card-index, 0) * 16px);
+    }
+  }
+}
+
 ::-webkit-scrollbar {
   display: none;
 }
@@ -185,6 +198,11 @@
   html,
   body {
     scroll-behavior: auto;
+  }
+
+  .case-study-sticky-card {
+    transform: none !important;
+    filter: none !important;
   }
 
   .animate-pulse {

@@ -3,11 +3,16 @@ import assert from 'node:assert/strict';
 import {
   buildWhatsAppUrl,
   clampSeconds,
+  computeCaseStudyStackValues,
+  FEATURED_CASE_STUDIES_COUNT,
   formatTimecode,
   getAdjacentIndex,
+  getCaseStudyStackRange,
+  getCaseStudyStickyTop,
   getLoopedSlideIndex,
   getProgressPercent,
   getSwipeDirection,
+  getVisibleCaseStudies,
   REVIEWS_AUTO_ADVANCE_MS,
   REVIEWS_MOBILE_MEDIA_QUERY,
   WHATSAPP_BASE_URL,
@@ -87,3 +92,33 @@ test('getSwipeDirection detects horizontal swipe thresholds', () => {
   assert.equal(getSwipeDirection(-40), 'next');
   assert.equal(getSwipeDirection(40), 'prev');
 });
+
+test('getVisibleCaseStudies slices featured projects and expands cleanly', () => {
+  assert.equal(FEATURED_CASE_STUDIES_COUNT, 4);
+  const sample = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  assert.deepEqual(getVisibleCaseStudies(sample, false), [1, 2, 3, 4]);
+  assert.deepEqual(getVisibleCaseStudies(sample, true), sample);
+});
+
+test('getCaseStudyStickyTop computes desktop and mobile sticky offsets', () => {
+  assert.equal(getCaseStudyStickyTop(0, false), 96);
+  assert.equal(getCaseStudyStickyTop(1, false), 112);
+  assert.equal(getCaseStudyStickyTop(3, false), 144);
+  assert.equal(getCaseStudyStickyTop(0, true), 72);
+  assert.equal(getCaseStudyStickyTop(1, true), 80);
+  assert.equal(getCaseStudyStickyTop(3, true), 96);
+});
+
+test('computeCaseStudyStackValues scales and dims covered cards and disables under reduced motion', () => {
+  assert.deepEqual(getCaseStudyStackRange(3, 4), {
+    start: 0,
+    end: 1,
+    targetScale: 1,
+    targetBrightness: 1,
+  });
+  assert.deepEqual(computeCaseStudyStackValues(0, 0, 4, false), { scale: 1, brightness: 1 });
+  assert.deepEqual(computeCaseStudyStackValues(1, 0, 4, false), { scale: 0.95, brightness: 0.78 });
+  assert.deepEqual(computeCaseStudyStackValues(1, 3, 4, false), { scale: 1, brightness: 1 });
+  assert.deepEqual(computeCaseStudyStackValues(0.75, 0, 4, true), { scale: 1, brightness: 1 });
+});
+

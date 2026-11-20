@@ -78,3 +78,60 @@ export function getSwipeDirection(
   }
   return null;
 }
+
+export const FEATURED_CASE_STUDIES_COUNT = 4;
+export const CASE_STUDY_STACK_MIN_SCALE = 0.95;
+export const CASE_STUDY_STACK_MIN_BRIGHTNESS = 0.78;
+
+export function getVisibleCaseStudies<T>(studies: readonly T[], showAll: boolean): T[] {
+  return showAll ? [...studies] : studies.slice(0, FEATURED_CASE_STUDIES_COUNT);
+}
+
+export function getCaseStudyStickyTop(index: number, isMobile: boolean): number {
+  const safeIndex = Math.max(0, index);
+  return isMobile ? 72 + safeIndex * 8 : 96 + safeIndex * 16;
+}
+
+export function getCaseStudyStackRange(
+  index: number,
+  total: number
+): {
+  start: number;
+  end: number;
+  targetScale: number;
+  targetBrightness: number;
+} {
+  if (total <= 1 || index >= total - 1) {
+    return {
+      start: 0,
+      end: 1,
+      targetScale: 1,
+      targetBrightness: 1,
+    };
+  }
+  return {
+    start: Math.max(0, index) / total,
+    end: 1,
+    targetScale: CASE_STUDY_STACK_MIN_SCALE,
+    targetBrightness: CASE_STUDY_STACK_MIN_BRIGHTNESS,
+  };
+}
+
+export function computeCaseStudyStackValues(
+  progress: number,
+  index: number,
+  total: number,
+  reducedMotion: boolean
+): { scale: number; brightness: number } {
+  if (reducedMotion || total <= 1 || index >= total - 1) {
+    return { scale: 1, brightness: 1 };
+  }
+  const { start, end, targetScale, targetBrightness } = getCaseStudyStackRange(index, total);
+  const span = Math.max(0.0001, end - start);
+  const t = Math.min(1, Math.max(0, (progress - start) / span));
+  return {
+    scale: Math.round((1 - t * (1 - targetScale)) * 10000) / 10000,
+    brightness: Math.round((1 - t * (1 - targetBrightness)) * 10000) / 10000,
+  };
+}
+

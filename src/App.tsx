@@ -17,7 +17,7 @@ export default function App() {
     <MotionConfig reducedMotion="user">
       <Navbar />
       <main className="w-full pt-20 bg-surface min-h-[calc(100vh-80px)]">
-        <div className="flex flex-col w-full text-on-surface bg-surface selection:bg-primary selection:text-on-primary font-body-md overflow-x-hidden">
+        <div className="flex flex-col w-full text-on-surface bg-surface selection:bg-primary selection:text-on-primary font-body-md overflow-x-clip">
           <Hero />
           <SkillsMarquee />
           <AboutSection />

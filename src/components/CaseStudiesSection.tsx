@@ -1,14 +1,179 @@
-import { useEffect, useState } from 'react';
-import { motion, useReducedMotion } from 'motion/react';
-import { CASE_STUDIES } from '../data/portfolio';
-import { getRevealTransition, REVEAL_DISTANCE_PX, REVEAL_VIEWPORT } from '../utils/motion';
-import { buildWhatsAppUrl, getAdjacentIndex, WHATSAPP_MESSAGES } from '../utils/portfolio';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import {
+  motion,
+  useMotionTemplate,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from 'motion/react';
+import { CASE_STUDIES, type CaseStudy } from '../data/portfolio';
+import {
+  buildWhatsAppUrl,
+  FEATURED_CASE_STUDIES_COUNT,
+  getAdjacentIndex,
+  getCaseStudyStackRange,
+  getVisibleCaseStudies,
+  WHATSAPP_MESSAGES,
+} from '../utils/portfolio';
 import { WhatsAppIcon } from './Icons';
 import { Reveal } from './MotionPrimitives';
 
+interface CaseStudyStackCardProps {
+  study: CaseStudy;
+  index: number;
+  total: number;
+  scrollYProgress: MotionValue<number>;
+  shouldReduceMotion: boolean;
+  onPreview: (index: number) => void;
+}
+
+function CaseStudyStackCard({
+  study,
+  index,
+  total,
+  scrollYProgress,
+  shouldReduceMotion,
+  onPreview,
+}: CaseStudyStackCardProps) {
+  const { start, end, targetScale, targetBrightness } = getCaseStudyStackRange(index, total);
+  const scale = useTransform(scrollYProgress, [start, end], [1, targetScale]);
+  const brightness = useTransform(scrollYProgress, [start, end], [1, targetBrightness]);
+  const filter = useMotionTemplate`brightness(${brightness})`;
+
+  const shouldAnimateStack = !shouldReduceMotion && index < total - 1;
+
+  const stickyStyle: CSSProperties & { '--card-index': number } = {
+    '--card-index': index,
+    zIndex: index + 1,
+  };
+
+  const cardClassName =
+    'case-study-sticky-card origin-top rounded-2xl bg-[#0B120D] hover:bg-[#121C15] border border-[#34E27A]/20 p-4 sm:p-6 md:p-10 transition-colors duration-300 shadow-2xl min-h-[590px] sm:min-h-[640px] md:min-h-[70vh] flex items-start md:items-center';
+
+  const cardContent = (
+    <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-4 md:gap-8 items-center">
+        <div className="lg:col-span-6 order-2 lg:order-1 flex flex-col items-start space-y-2 md:space-y-4">
+          <div className="flex items-center gap-2.5 sm:gap-3 w-full min-w-0">
+            <span className="font-headline-md text-headline-md text-primary shrink-0">
+              {study.number}
+            </span>
+            <span className="px-2.5 sm:px-3 py-1 rounded-full bg-surface text-secondary font-label-md text-[9.5px] min-[390px]:text-[10px] sm:text-[11px] uppercase tracking-[0.03em] sm:tracking-wider border border-outline whitespace-nowrap">
+              {study.category}
+            </span>
+          </div>
+          <h3 className="font-title-md text-title-md uppercase text-on-surface tracking-wider">
+            {study.title}
+          </h3>
+          <p className="font-body-md text-[16px] md:text-[17px] lg:text-[18px] text-secondary leading-relaxed">
+            {study.description}
+          </p>
+          <div className="pt-1 md:pt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5 md:gap-4 text-secondary font-label-md text-label-md">
+            <span className="text-primary uppercase tracking-wider">{study.metaLabel}</span>
+            {study.metaItems.map((item, itemIdx) => (
+              <span key={item.text} className="inline-flex items-center gap-3 md:gap-4">
+                {itemIdx > 0 && <span>•</span>}
+                <span className={item.highlight ? 'text-on-surface' : undefined}>{item.text}</span>
+              </span>
+            ))}
+          </div>
+          <div className="pt-1 md:pt-2">
+            <a
+              href={buildWhatsAppUrl(WHATSAPP_MESSAGES.caseStudy(study.title))}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Request a project similar to ${study.title} on WhatsApp`}
+              className="inline-flex items-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-surface border border-outline hover:border-primary text-primary hover:bg-primary-container hover:text-on-primary-container font-button text-[13px] sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap shrink-0"
+            >
+              <WhatsAppIcon className="w-4 h-4 shrink-0 fill-current" />
+              <span>Request similar</span>
+            </a>
+          </div>
+        </div>
+
+        <div className="lg:col-span-6 order-1 lg:order-2">
+          <button
+            type="button"
+            aria-label={`Preview ${study.title} (${study.duration})`}
+            onClick={() => onPreview(index)}
+            className="w-full aspect-video rounded-xl bg-surface border border-outline relative overflow-hidden group flex items-center justify-center cursor-pointer text-left"
+          >
+            <img
+              src={study.imageUrl}
+              alt={study.title}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-300" />
+            <div className="w-14 h-14 md:w-16 md:h-16 rounded-full border border-primary/40 group-hover:border-primary group-hover:bg-primary-container text-primary group-hover:text-on-primary-container flex items-center justify-center transition-all duration-200 z-10">
+              <span
+                className="material-symbols-outlined text-[28px] md:text-[32px] ml-0.5"
+                style={{ fontVariationSettings: "'FILL' 1" }}
+              >
+                play_arrow
+              </span>
+            </div>
+            <span className="absolute bottom-3 right-3 font-timecode text-timecode text-secondary bg-surface/80 px-2 py-1 rounded border border-outline z-10">
+              {study.duration}
+            </span>
+          </button>
+        </div>
+    </div>
+  );
+
+  if (!shouldAnimateStack) {
+    return (
+      <article style={stickyStyle} className={cardClassName}>
+        {cardContent}
+      </article>
+    );
+  }
+
+  return (
+    <motion.article
+      style={{
+        ...stickyStyle,
+        scale,
+        filter,
+      }}
+      className={cardClassName}
+    >
+      {cardContent}
+    </motion.article>
+  );
+}
+
+function usePrefersReducedMotion(): boolean {
+  const motionReduced = Boolean(useReducedMotion());
+  const [mediaReduced, setMediaReduced] = useState(() =>
+    typeof window !== 'undefined' && typeof window.matchMedia === 'function'
+      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      : false
+  );
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+      return;
+    }
+    const query = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setMediaReduced(query.matches);
+    const onChange = (event: MediaQueryListEvent) => setMediaReduced(event.matches);
+    query.addEventListener('change', onChange);
+    return () => query.removeEventListener('change', onChange);
+  }, []);
+
+  return motionReduced || mediaReduced;
+}
+
 export function CaseStudiesSection() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const shouldReduceMotion = useReducedMotion();
+  const [showAll, setShowAll] = useState(false);
+  const stackContainerRef = useRef<HTMLDivElement | null>(null);
+  const shouldReduceMotion = usePrefersReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: stackContainerRef,
+    offset: ['start 120px', 'end 88%'],
+  });
 
   useEffect(() => {
     if (selectedIndex === null) {
@@ -31,6 +196,7 @@ export function CaseStudiesSection() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedIndex]);
 
+  const visibleStudies = getVisibleCaseStudies(CASE_STUDIES, showAll);
   const activeStudy = selectedIndex !== null ? CASE_STUDIES[selectedIndex] : null;
 
   return (
@@ -52,87 +218,40 @@ export function CaseStudiesSection() {
       </Reveal>
 
       {/* Stacked Cards Container */}
-      <div className="space-y-8 lg:space-y-12 relative">
-        {CASE_STUDIES.map((study, index) => (
-          <motion.article
+      <div
+        ref={stackContainerRef}
+        className="relative flex flex-col gap-[16vh] md:gap-[24vh]"
+      >
+        {visibleStudies.map((study, index) => (
+          <CaseStudyStackCard
             key={study.number}
-            initial={shouldReduceMotion ? false : { opacity: 0, y: REVEAL_DISTANCE_PX }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={REVEAL_VIEWPORT}
-            transition={getRevealTransition(shouldReduceMotion)}
-            className={`sticky ${study.stickyTopClass} rounded-2xl bg-[#0B120D] hover:bg-surface-raised border border-outline p-6 sm:p-10 transition-colors duration-300 shadow-2xl`}
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-6 flex flex-col items-start space-y-4">
-                <div className="flex items-center gap-2.5 sm:gap-3 w-full min-w-0">
-                  <span className="font-headline-md text-headline-md text-primary shrink-0">
-                    {study.number}
-                  </span>
-                  <span className="px-2.5 sm:px-3 py-1 rounded-full bg-surface text-secondary font-label-md text-[9.5px] min-[390px]:text-[10px] sm:text-[11px] uppercase tracking-[0.03em] sm:tracking-wider border border-outline whitespace-nowrap">
-                    {study.category}
-                  </span>
-                </div>
-                <h3 className="font-title-md text-title-md uppercase text-on-surface tracking-wider">
-                  {study.title}
-                </h3>
-                <p className="font-body-md text-[16px] md:text-[17px] lg:text-[18px] text-secondary leading-relaxed">
-                  {study.description}
-                </p>
-                <div className="pt-4 flex flex-wrap items-center gap-4 text-secondary font-label-md text-label-md">
-                  <span className="text-primary uppercase tracking-wider">{study.metaLabel}</span>
-                  {study.metaItems.map((item, itemIdx) => (
-                    <span key={item.text} className="inline-flex items-center gap-4">
-                      {itemIdx > 0 && <span>•</span>}
-                      <span className={item.highlight ? 'text-on-surface' : undefined}>
-                        {item.text}
-                      </span>
-                    </span>
-                  ))}
-                </div>
-                <div className="pt-2">
-                  <a
-                    href={buildWhatsAppUrl(WHATSAPP_MESSAGES.caseStudy(study.title))}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Request a project similar to ${study.title} on WhatsApp`}
-                    className="inline-flex items-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-surface border border-outline hover:border-primary text-primary hover:bg-primary-container hover:text-on-primary-container font-button text-[13px] sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap shrink-0"
-                  >
-                    <WhatsAppIcon className="w-4 h-4 shrink-0 fill-current" />
-                    <span>Request similar</span>
-                  </a>
-                </div>
-              </div>
-
-              <div className="lg:col-span-6">
-                <button
-                  type="button"
-                  aria-label={`Preview ${study.title} (${study.duration})`}
-                  onClick={() => setSelectedIndex(index)}
-                  className="w-full aspect-video rounded-xl bg-surface border border-outline relative overflow-hidden group flex items-center justify-center cursor-pointer text-left"
-                >
-                  <img
-                    src={study.imageUrl}
-                    alt={study.title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-300" />
-                  <div className="w-16 h-16 rounded-full border border-primary/40 group-hover:border-primary group-hover:bg-primary-container text-primary group-hover:text-on-primary-container flex items-center justify-center transition-all duration-200 z-10">
-                    <span
-                      className="material-symbols-outlined text-[32px] ml-0.5"
-                      style={{ fontVariationSettings: "'FILL' 1" }}
-                    >
-                      play_arrow
-                    </span>
-                  </div>
-                  <span className="absolute bottom-3 right-3 font-timecode text-timecode text-secondary bg-surface/80 px-2 py-1 rounded border border-outline z-10">
-                    {study.duration}
-                  </span>
-                </button>
-              </div>
-            </div>
-          </motion.article>
+            study={study}
+            index={index}
+            total={visibleStudies.length}
+            scrollYProgress={scrollYProgress}
+            shouldReduceMotion={shouldReduceMotion}
+            onPreview={setSelectedIndex}
+          />
         ))}
+        {/* Flow spacer extends sticky containing-block content height below the final card */}
+        <div aria-hidden="true" className="h-[1px] pointer-events-none" />
       </div>
+
+      {CASE_STUDIES.length > FEATURED_CASE_STUDIES_COUNT && (
+        <div className="mt-4 flex justify-center">
+          <button
+            type="button"
+            aria-expanded={showAll}
+            onClick={() => setShowAll((prev) => !prev)}
+            className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full bg-surface border border-outline hover:border-primary text-primary hover:bg-primary-container hover:text-on-primary-container font-button text-sm font-semibold transition-all duration-200 whitespace-nowrap cursor-pointer"
+          >
+            <span>{showAll ? 'Show featured' : 'See all'}</span>
+            <span className="material-symbols-outlined text-[18px]">
+              {showAll ? 'expand_less' : 'expand_more'}
+            </span>
+          </button>
+        </div>
+      )}
 
       {/* Case Study Preview Modal */}
       {activeStudy && selectedIndex !== null && (
