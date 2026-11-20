@@ -74,7 +74,7 @@ export const MARQUEE_SKILLS: { label: string; subLabel?: string }[] = [
   { label: 'ADOBE PHOTOSHOP' },
   { label: 'ADOBE ILLUSTRATOR' },
   { label: 'LUMETRI COLOR' },
-  { label: 'ELEVENLABS', subLabel: 'AI VOICEOVER' },
+  { label: 'ELEVENLABS'},
 ];
 
 export const ABOUT_TAGS = [

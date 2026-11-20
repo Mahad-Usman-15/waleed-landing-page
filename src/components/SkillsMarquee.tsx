@@ -11,9 +11,6 @@ function MarqueeTrack({ ariaHidden = false }: { ariaHidden?: boolean }) {
               <span className="font-headline-md text-[28px] md:text-[40px] leading-none uppercase text-[#EAF3EC]">
                 {skill.label}
               </span>
-              <span className="font-label-md text-[13px] font-semibold tracking-wider uppercase text-[#9DB0A2] mt-1">
-                {skill.subLabel}
-              </span>
             </div>
           ) : (
             <span className="font-headline-md text-[28px] md:text-[40px] leading-none uppercase text-[#EAF3EC] mx-6">
