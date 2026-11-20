@@ -50,3 +50,31 @@ export function getAdjacentIndex(
   }
   return (currentIndex - 1 + length) % length;
 }
+
+export const REVIEWS_AUTO_ADVANCE_MS = 5000;
+export const REVIEWS_MOBILE_MEDIA_QUERY = '(max-width: 767px)';
+export const REVIEWS_SWIPE_THRESHOLD_PX = 40;
+
+export function getLoopedSlideIndex(
+  currentIndex: number,
+  delta: number,
+  totalSlides: number
+): number {
+  if (totalSlides <= 0) {
+    return 0;
+  }
+  return (((currentIndex + delta) % totalSlides) + totalSlides) % totalSlides;
+}
+
+export function getSwipeDirection(
+  deltaX: number,
+  thresholdPx = REVIEWS_SWIPE_THRESHOLD_PX
+): 'next' | 'prev' | null {
+  if (deltaX <= -thresholdPx) {
+    return 'next';
+  }
+  if (deltaX >= thresholdPx) {
+    return 'prev';
+  }
+  return null;
+}

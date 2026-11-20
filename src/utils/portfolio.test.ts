@@ -5,7 +5,11 @@ import {
   clampSeconds,
   formatTimecode,
   getAdjacentIndex,
+  getLoopedSlideIndex,
   getProgressPercent,
+  getSwipeDirection,
+  REVIEWS_AUTO_ADVANCE_MS,
+  REVIEWS_MOBILE_MEDIA_QUERY,
   WHATSAPP_BASE_URL,
   WHATSAPP_MESSAGES,
 } from './portfolio';
@@ -63,4 +67,23 @@ test('all WhatsApp messages match expected templates and contain no em dashes or
     assert.ok(url.startsWith('https://wa.me/923358150666?text='));
     assert.equal(decodeURIComponent(url.split('?text=')[1]), msg);
   }
+});
+
+test('getLoopedSlideIndex wraps smoothly forward and backward', () => {
+  assert.equal(REVIEWS_AUTO_ADVANCE_MS, 5000);
+  assert.equal(REVIEWS_MOBILE_MEDIA_QUERY, '(max-width: 767px)');
+  assert.equal(getLoopedSlideIndex(0, 1, 3), 1);
+  assert.equal(getLoopedSlideIndex(2, 1, 3), 0);
+  assert.equal(getLoopedSlideIndex(0, -1, 3), 2);
+  assert.equal(getLoopedSlideIndex(1, -1, 3), 0);
+  assert.equal(getLoopedSlideIndex(0, 1, 0), 0);
+});
+
+test('getSwipeDirection detects horizontal swipe thresholds', () => {
+  assert.equal(getSwipeDirection(-50), 'next');
+  assert.equal(getSwipeDirection(50), 'prev');
+  assert.equal(getSwipeDirection(-20), null);
+  assert.equal(getSwipeDirection(20), null);
+  assert.equal(getSwipeDirection(-40), 'next');
+  assert.equal(getSwipeDirection(40), 'prev');
 });

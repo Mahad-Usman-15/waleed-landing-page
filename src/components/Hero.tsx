@@ -57,7 +57,7 @@ export function Hero() {
               <span>Message me on WhatsApp</span>
             </a>
             <a
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-transparent hover:bg-surface-raised text-primary border border-outline hover:border-primary font-button text-button font-semibold transition-all duration-200"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-transparent hover:bg-primary-container text-primary hover:text-on-primary-container border border-outline hover:border-primary-container hover:shadow-[0_0_24px_rgba(52,226,122,0.3)] hover:scale-[1.02] font-button text-button font-semibold transition-all duration-200"
               href="#work"
             >
               <span>See my work</span>
