@@ -1,4 +1,5 @@
 import { CONTACT_INFO, NAV_LINKS } from '../data/portfolio';
+import { buildWhatsAppUrl, WHATSAPP_MESSAGES } from '../utils/portfolio';
 import { WhatsAppIcon } from './Icons';
 
 export function Footer() {
@@ -52,7 +53,7 @@ export function Footer() {
                 <p className="text-body-md">
                   <a
                     className="text-secondary hover:text-primary transition-colors flex items-center gap-2"
-                    href={CONTACT_INFO.whatsappUrl}
+                    href={buildWhatsAppUrl(WHATSAPP_MESSAGES.bannerAndFooter)}
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -83,7 +84,7 @@ export function Footer() {
       <a
         aria-label="Chat on WhatsApp"
         className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-primary-container text-on-primary-container hover:bg-primary-hover shadow-[0_8px_24px_rgba(52,226,122,0.35)] flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95"
-        href={CONTACT_INFO.whatsappUrl}
+        href={buildWhatsAppUrl(WHATSAPP_MESSAGES.bannerAndFooter)}
         rel="noopener noreferrer"
         target="_blank"
       >

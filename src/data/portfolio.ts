@@ -13,6 +13,7 @@ export interface CaseStudy {
 export interface ServiceItem {
   number: string;
   title: string;
+  inquiryName: string;
   description: string;
   footerLabel: string;
   isPrimary?: boolean;
@@ -44,7 +45,6 @@ export interface FaqItem {
 }
 
 export const CONTACT_INFO = {
-  whatsappUrl: 'https://wa.me/923358150666',
   email: 'creativlog133@gmail.com',
   phoneDisplay: '+92 335 8150 666',
 };
@@ -201,6 +201,7 @@ export const SERVICES: ServiceItem[] = [
   {
     number: '01',
     title: 'EXPLAINER VIDEOS',
+    inquiryName: 'Explainer Videos',
     description:
       'Clear, engaging breakdowns of ideas, products and processes. This is my main specialty.',
     footerLabel: 'MAIN SPECIALTY',
@@ -210,6 +211,7 @@ export const SERVICES: ServiceItem[] = [
   {
     number: '02',
     title: 'MOTION GRAPHICS AND ADS',
+    inquiryName: 'Motion Graphics and Ads',
     description:
       'Expressive motion design and high conversion video ads for brands and creators.',
     footerLabel: 'CONVERSION FOCUSED',
@@ -219,6 +221,7 @@ export const SERVICES: ServiceItem[] = [
   {
     number: '03',
     title: 'VIDEO EDITING',
+    inquiryName: 'Video Editing',
     description:
       'Creative editing, seamless transitions, cinematic storytelling, and professional color grading for engaging videos across all formats.',
     footerLabel: 'VERTICAL & HORIZONTAL',
@@ -228,6 +231,7 @@ export const SERVICES: ServiceItem[] = [
   {
     number: '04',
     title: 'Ai ads',
+    inquiryName: 'AI Ads',
     description:
       'Creative AI-generated advertisements that transform ideas into visually captivating and engaging brand experiences.',
     footerLabel: 'IDENTITY IN MOTION',

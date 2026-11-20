@@ -1,10 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  buildWhatsAppUrl,
   clampSeconds,
   formatTimecode,
   getAdjacentIndex,
   getProgressPercent,
+  WHATSAPP_BASE_URL,
+  WHATSAPP_MESSAGES,
 } from './portfolio';
 
 test('formatTimecode formats zero and single/double digit seconds', () => {
@@ -34,4 +37,30 @@ test('getAdjacentIndex wraps cleanly across case study items', () => {
   assert.equal(getAdjacentIndex(8, 'next', 9), 0);
   assert.equal(getAdjacentIndex(3, 'next', 9), 4);
   assert.equal(getAdjacentIndex(0, 'next', 0), -1);
+});
+
+test('buildWhatsAppUrl encodes messages cleanly with base URL', () => {
+  const sample = 'Hi Waleed, test message: 100%?';
+  assert.equal(
+    buildWhatsAppUrl(sample),
+    `${WHATSAPP_BASE_URL}?text=${encodeURIComponent(sample)}`
+  );
+});
+
+test('all WhatsApp messages match expected templates and contain no em dashes or hyphens', () => {
+  const messages = [
+    WHATSAPP_MESSAGES.header,
+    WHATSAPP_MESSAGES.hero,
+    WHATSAPP_MESSAGES.bannerAndFooter,
+    WHATSAPP_MESSAGES.faq,
+    WHATSAPP_MESSAGES.caseStudy('Networking Showreel'),
+    WHATSAPP_MESSAGES.service('Explainer Videos'),
+  ];
+
+  for (const msg of messages) {
+    assert.equal(/[—–-]/.test(msg), false, `Unexpected dash in message: ${msg}`);
+    const url = buildWhatsAppUrl(msg);
+    assert.ok(url.startsWith('https://wa.me/923358150666?text='));
+    assert.equal(decodeURIComponent(url.split('?text=')[1]), msg);
+  }
 });

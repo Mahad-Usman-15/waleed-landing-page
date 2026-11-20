@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { CONTACT_INFO, NAV_LINKS } from '../data/portfolio';
+import { NAV_LINKS } from '../data/portfolio';
+import { buildWhatsAppUrl, WHATSAPP_MESSAGES } from '../utils/portfolio';
 
 export function Navbar() {
   const [activePath, setActivePath] = useState<string>('work');
@@ -46,7 +47,7 @@ export function Navbar() {
           <a
             className="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-primary-container hover:bg-primary-hover text-on-primary-container font-button text-button font-semibold tracking-wide transition-all shadow-[0_0_20px_rgba(52,226,122,0.25)] hover:shadow-[0_0_28px_rgba(92,240,149,0.4)]"
             data-path="hire-me"
-            href={CONTACT_INFO.whatsappUrl}
+            href={buildWhatsAppUrl(WHATSAPP_MESSAGES.header)}
             rel="noopener noreferrer"
             target="_blank"
           >

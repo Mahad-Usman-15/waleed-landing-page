@@ -1,5 +1,6 @@
 import { SERVICES } from '../data/portfolio';
-import { ServiceIcon } from './Icons';
+import { buildWhatsAppUrl, WHATSAPP_MESSAGES } from '../utils/portfolio';
+import { ServiceIcon, WhatsAppIcon } from './Icons';
 
 export function ServicesSection() {
   return (
@@ -42,28 +43,33 @@ export function ServicesSection() {
                 {service.description}
               </p>
             </div>
-            <div className="pt-4 border-t border-[#34E27A]/30 flex items-center justify-between text-[13px] font-semibold tracking-wider uppercase font-['Montserrat'] mt-6">
+            <div className="pt-4 border-t border-[#34E27A]/30 flex items-center justify-between gap-4 text-[13px] font-semibold tracking-wider uppercase font-['Montserrat'] mt-6">
               {service.isPrimary ? (
-                <>
-                  <span className="inline-flex items-center gap-2 text-[#5FFF95]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#5FFF95] animate-pulse" />
-                    {service.footerLabel}
-                  </span>
-                  <span className="material-symbols-outlined text-[18px] text-[#5FFF95]">
-                    arrow_forward
-                  </span>
-                </>
+                <span className="inline-flex items-center gap-2 text-[#5FFF95]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#5FFF95] animate-pulse" />
+                  {service.footerLabel}
+                </span>
               ) : (
-                <>
-                  <span className="inline-flex items-center gap-2 text-[#B8CBBD]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#B8CBBD]" />
-                    {service.footerLabel}
-                  </span>
-                  <span className="material-symbols-outlined text-[18px] text-[#B8CBBD]">
-                    arrow_forward
-                  </span>
-                </>
+                <span className="inline-flex items-center gap-2 text-[#B8CBBD]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#B8CBBD]" />
+                  {service.footerLabel}
+                </span>
               )}
+              <a
+                href={buildWhatsAppUrl(WHATSAPP_MESSAGES.service(service.inquiryName))}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Inquire about ${service.inquiryName} on WhatsApp`}
+                className={`inline-flex items-center gap-2 transition-colors ${
+                  service.isPrimary
+                    ? 'text-[#5FFF95] hover:text-white'
+                    : 'text-[#B8CBBD] hover:text-[#5FFF95]'
+                }`}
+              >
+                <WhatsAppIcon className="w-4 h-4 shrink-0 fill-current" />
+                <span>Get a quote</span>
+                <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+              </a>
             </div>
           </div>
         ))}

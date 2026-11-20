@@ -1,4 +1,5 @@
-import { CONTACT_INFO, PORTRAIT_URL } from '../data/portfolio';
+import { PORTRAIT_URL } from '../data/portfolio';
+import { buildWhatsAppUrl, WHATSAPP_MESSAGES } from '../utils/portfolio';
 import { WhatsAppIcon } from './Icons';
 
 export function Hero() {
@@ -18,7 +19,7 @@ export function Hero() {
           {/* Outlined Tag Pill */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-raised border border-outline mb-6">
             <span className="w-2 h-2 rounded-full bg-primary-container animate-pulse" />
-            <span className="font-label-md text-label-md text-primary uppercase tracking-widest">
+            <span className="font-label-md text-label-md text-[11px] text-primary uppercase tracking-widest">
               Motion designer and video editor
             </span>
           </div>
@@ -41,7 +42,7 @@ export function Hero() {
           <div className="flex flex-wrap items-center gap-4 sm:gap-6 w-full sm:w-auto">
             <a
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-primary-container hover:bg-primary-hover text-on-primary-container font-button text-button font-semibold transition-all duration-200 shadow-[0_0_24px_rgba(52,226,122,0.3)] hover:scale-[1.02]"
-              href={CONTACT_INFO.whatsappUrl}
+              href={buildWhatsAppUrl(WHATSAPP_MESSAGES.hero)}
               rel="noopener noreferrer"
               target="_blank"
             >

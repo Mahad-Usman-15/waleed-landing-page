@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { CASE_STUDIES, CONTACT_INFO } from '../data/portfolio';
-import { getAdjacentIndex } from '../utils/portfolio';
+import { CASE_STUDIES } from '../data/portfolio';
+import { buildWhatsAppUrl, getAdjacentIndex, WHATSAPP_MESSAGES } from '../utils/portfolio';
 import { WhatsAppIcon } from './Icons';
 
 export function CaseStudiesSection() {
@@ -80,6 +80,18 @@ export function CaseStudiesSection() {
                       </span>
                     </span>
                   ))}
+                </div>
+                <div className="pt-2">
+                  <a
+                    href={buildWhatsAppUrl(WHATSAPP_MESSAGES.caseStudy(study.title))}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Request a project similar to ${study.title} on WhatsApp`}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-surface border border-outline hover:border-primary text-primary hover:bg-primary-container hover:text-on-primary-container font-button text-sm font-semibold transition-all duration-200"
+                  >
+                    <WhatsAppIcon className="w-4 h-4 shrink-0 fill-current" />
+                    <span>Request similar</span>
+                  </a>
                 </div>
               </div>
 
@@ -189,7 +201,7 @@ export function CaseStudiesSection() {
                   Next
                 </button>
                 <a
-                  href={CONTACT_INFO.whatsappUrl}
+                  href={buildWhatsAppUrl(WHATSAPP_MESSAGES.caseStudy(activeStudy.title))}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary-container hover:bg-primary-hover text-on-primary-container font-button text-sm font-semibold transition-colors"

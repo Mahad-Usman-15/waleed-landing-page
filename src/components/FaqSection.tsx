@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { CONTACT_INFO, FAQS } from '../data/portfolio';
+import { FAQS } from '../data/portfolio';
+import { buildWhatsAppUrl, WHATSAPP_MESSAGES } from '../utils/portfolio';
 import { MinusIcon, PlusIcon } from './Icons';
 
 export function FaqSection() {
@@ -45,7 +46,7 @@ export function FaqSection() {
               Have a different question? Message me on WhatsApp.
             </p>
             <a
-              href={CONTACT_INFO.whatsappUrl}
+              href={buildWhatsAppUrl(WHATSAPP_MESSAGES.faq)}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center h-[52px] px-6 rounded-full border border-[#34E27A] text-[#34E27A] hover:bg-[#34E27A] hover:text-[#04110A] font-button text-[15px] font-semibold transition-all duration-200 tracking-wide"

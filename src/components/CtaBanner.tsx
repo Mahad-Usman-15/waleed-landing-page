@@ -1,4 +1,4 @@
-import { CONTACT_INFO } from '../data/portfolio';
+import { buildWhatsAppUrl, WHATSAPP_MESSAGES } from '../utils/portfolio';
 import { WhatsAppIcon } from './Icons';
 
 export function CtaBanner() {
@@ -27,7 +27,7 @@ export function CtaBanner() {
         <div className="z-10 shrink-0 self-start md:self-center">
           <a
             className="inline-flex items-center justify-center gap-3 px-7 py-3.5 sm:px-8 sm:py-4 rounded-full bg-[#0a120c] hover:bg-black text-white font-button text-[14px] sm:text-[15px] font-semibold transition-all duration-200 shadow-xl hover:scale-[1.02] active:scale-95 border border-[#1b3420]/40"
-            href={CONTACT_INFO.whatsappUrl}
+            href={buildWhatsAppUrl(WHATSAPP_MESSAGES.bannerAndFooter)}
             rel="noopener noreferrer"
             target="_blank"
           >

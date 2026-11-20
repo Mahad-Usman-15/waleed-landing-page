@@ -47,7 +47,7 @@ export function AboutSection() {
                 }`}
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                <span>{tag.label}</span>
+                <span className="text-[11px]">{tag.label}</span>
               </div>
             ))}
           </div>
